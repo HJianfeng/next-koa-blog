@@ -89,11 +89,15 @@ html {
   background-color: #f4f4f4;
   color: #000;
   height: 100%;
+  font-size: 12px;
   -webkit-tap-highlight-color: transparent;
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
+    text-rendering: optimizeLegibility;
 }
 
 body {
-  font-family: PingFangSC-Light, helvetica, 'Heiti SC', sans-serif;
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
+    text-rendering: optimizeLegibility;
   color: #333;
   font-size: .28em;
   line-height: 1;
