@@ -20,6 +20,7 @@ const nextConfig = withLess({
     config.resolve.alias.components = path.join(__dirname, 'components');
     config.resolve.alias.static = path.join(__dirname, 'static');
     config.resolve.alias['@'] = path.join(__dirname, './');
+    config.resolve.alias['@store'] = path.join(__dirname, 'store/Reducer');
     return config;
   },
 });

@@ -1,15 +1,17 @@
-import React from 'react';
+
+import React, { useState, useCallback } from 'react';
 import SideBar from 'components/Home/SideBar';
+import { connect } from 'react-redux';
+import { actionCreators } from '@store/home';
 import axios from '@/utils/axios';
 import './index.less';
 
-
-function Home() {
-  const handelClick = async () => {
-    const params = { page: 1 };
-    const result = await axios.get('/api/test', { params });
-    console.log(result.data);
-  };
+function Home({ homeData }) {
+  console.log('homeData', homeData);
+  const [count, setCount] = useState(0);
+  const handelClick = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
   return (
     <div className="home-container">
       <div className="home-content">
@@ -17,8 +19,7 @@ function Home() {
           <div className="article-list">
             <div className="article-item">
               <ul className="article-item-top">
-                <button type="button" onClick={handelClick}>Sort</button>
-                <li className="article-label dot">原创</li>
+                <li onClick={handelClick} className="article-label dot">原创</li>
                 <li className="article-author dot">作者</li>
                 <li className="article-author dot">2019-04-14</li>
                 <li className="article-author">React</li>
@@ -43,11 +44,25 @@ function Home() {
 }
 
 Home.getInitialProps = async () => {
-  const result = await axios.get('/api/test');
-  console.log(result.data);
+  const params = { a: 1 };
+  const result = await axios.get('/api/test', { params });
   return {
-    title: '标题',
+    homeData: result.data
   };
 };
 
-export default Home;
+const mapState = (state) => {
+  return {
+    scrollFlag: state.home.scrollFlag
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    scrollHandler(type) {
+      dispatch(actionCreators.changeScrollFlag(type));
+    }
+  };
+};
+
+export default connect(mapState, mapDispatch)(Home);

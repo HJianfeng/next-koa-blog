@@ -2,12 +2,12 @@
 import next from 'next';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
+import './app/db';
 
 const port = parseInt(process.env.PORT || '3000', 10);
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
-
 const logger = require('koa-logger');
 const session = require('koa-session');
 // 路由
@@ -35,7 +35,6 @@ app.prepare().then(() => {
     ctx.res.statusCode = 200;
     await nextF();
   });
-
   server.use(router.routes());
   server.listen(port, () => {
     console.log(

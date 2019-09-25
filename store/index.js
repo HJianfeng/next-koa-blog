@@ -1,8 +1,8 @@
 import { createStore, compose, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk'
-import reducer from './reducer'
+import thunk from 'redux-thunk';
+import reducer from './reducer';
 
-const exampleInitialState = { }
+const exampleInitialState = { };
 /* eslint-disable no-underscore-dangle */
 const makeStore = (initialState = exampleInitialState) => {
   if (process.env.NODE_ENV !== 'production') {
