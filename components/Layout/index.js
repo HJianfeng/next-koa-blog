@@ -24,7 +24,6 @@ const Layout = ({
         <meta name="description" content={description} />
         <meta name="apple-itunes-app" content="app-id=1172743994" />
         <link rel="icon" href="/static/favicon.ico" mce_href="/static/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/static/css/reset.css" />
         <script src="https://pv.sohu.com/cityjson?ie=utf-8" />
       </Head>
       <Header />
