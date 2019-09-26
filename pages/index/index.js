@@ -1,17 +1,19 @@
-
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import SideBar from 'components/Home/SideBar';
 import { connect } from 'react-redux';
 import { actionCreators } from '@store/home';
-import axios from '@/utils/axios';
+import { createArticeList } from '@/utils/api/home';
 import './index.less';
 
-function Home({ homeData }) {
-  console.log('homeData', homeData);
-  const [count, setCount] = useState(0);
-  const handelClick = useCallback(() => {
-    setCount(count + 1);
-  }, [count]);
+function Home() {
+  const handelClick = async () => {
+    const data = {
+      title: '文章',
+      content: '内容'
+    };
+    const result = await createArticeList(data);
+    console.log(result.data);
+  };
   return (
     <div className="home-container">
       <div className="home-content">
@@ -44,10 +46,10 @@ function Home({ homeData }) {
 }
 
 Home.getInitialProps = async () => {
-  const params = { a: 1 };
-  const result = await axios.get('/api/test', { params });
+  // const params = { a: 1 };
+  // const result = await getArticeList(params);
   return {
-    homeData: result.data
+    homeData: 'result.data'
   };
 };
 

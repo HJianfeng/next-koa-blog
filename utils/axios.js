@@ -1,10 +1,14 @@
 import axios from 'axios';
 import { message } from 'antd';
+import qs from 'qs';
 
 const instance = axios.create({
   baseURL: 'http://localhost:3000',
   timeout: 10000,
-  headers: { },
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  transformRequest: [data => qs.stringify(data)] // 参数转换
 });
 const isServer = typeof window === 'undefined';
 // 拦截器
