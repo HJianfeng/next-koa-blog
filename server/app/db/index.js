@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
  * @type {[type]}
  */
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/nextblog', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', (error) => {
   console.log(`数据库连接失败：${error}`);

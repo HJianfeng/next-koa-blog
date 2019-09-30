@@ -30,8 +30,8 @@ class MyApp extends App {
         <Provider store={store}>
           <Layout
             title={pageProps.title}
-            headerType={pageProps.headerType}
-            footerShow={pageProps.footerShow}
+            headerHidden={pageProps.headerHidden}
+            FooterHidden={pageProps.FooterHidden}
           >
             <Component {...pageProps} />
           </Layout>

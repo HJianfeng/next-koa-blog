@@ -1,6 +1,5 @@
 /* eslint-disable require-atomic-updates */
 /* eslint-disable no-use-before-define */
-
 import Article from '../models/article';
 
 /**

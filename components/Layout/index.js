@@ -11,6 +11,8 @@ const Layout = ({
   title = 'hjf的博客',
   keyword = defaultKeyword,
   description = defaultDescription,
+  headerHidden = false,
+  FooterHidden = false
 }) => {
   return (
     <div>
@@ -26,9 +28,9 @@ const Layout = ({
         <link rel="icon" href="/static/favicon.ico" mce_href="/static/favicon.ico" type="image/x-icon" />
         <script src="https://pv.sohu.com/cityjson?ie=utf-8" />
       </Head>
-      <Header />
+      {!headerHidden ? <Header /> : ''}
       { children }
-      <Footer />
+      {!FooterHidden ? <Footer /> : ''}
     </div>
   );
 };

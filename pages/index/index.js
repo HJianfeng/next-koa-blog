@@ -2,7 +2,7 @@ import React from 'react';
 import SideBar from 'components/Home/SideBar';
 import { connect } from 'react-redux';
 import { actionCreators } from '@store/home';
-import { createArticeList } from '@/utils/api/home';
+import { postArtice } from '@/utils/api/home';
 import './index.less';
 
 function Home() {
@@ -11,7 +11,7 @@ function Home() {
       title: '文章',
       content: '内容'
     };
-    const result = await createArticeList(data);
+    const result = await postArtice(data);
     console.log(result.data);
   };
   return (

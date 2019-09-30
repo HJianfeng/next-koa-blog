@@ -8,7 +8,7 @@ export function getArticeList(params) {
   });
 }
 
-export function createArticeList(data) {
+export function postArtice(data) {
   return axios({
     url: '/api/article',
     method: 'post',
