@@ -8,6 +8,14 @@ export function getArticeList(params) {
   });
 }
 
+export function getArticeOne(params) {
+  return axios({
+    url: '/api/article/one',
+    method: 'get',
+    params
+  });
+}
+
 export function postArtice(data) {
   return axios({
     url: '/api/article',

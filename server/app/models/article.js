@@ -9,11 +9,14 @@ const { Schema } = mongoose;
  * @param {String}  type     [1: 原创 2: 翻译 3: 转载]
  * @param {Number}  viewNum     [浏览量]
  */
+const { ObjectId } = mongoose.Schema.Types;
 const articleListSchema = new Schema({
+  id: ObjectId,
   title: { type: String, required: true },
   summary: { type: String, required: true },
   content: { type: String, required: true },
   type: { type: Number, required: true, default: 1 },
+  category: { type: String, default: 'javascript' },
   viewNum: { type: Number, default: 0 },
   updateTime: { type: Number },
   createTime: { type: Number }

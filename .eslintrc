@@ -23,7 +23,8 @@
     "react/prop-types": [0],
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": ["error", "never"],
+    "no-underscore-dangle": "off"
   },
   "plugins": ["import"]
 }

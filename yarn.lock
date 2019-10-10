@@ -3556,6 +3556,11 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
+github-markdown-css@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/github-markdown-css/download/github-markdown-css-3.0.1.tgz#d08db1060d2e182025e0d07d547cfe2afed30205"
+  integrity sha1-0I2xBg0uGCAl4NB9VHz+Kv7TAgU=
+
 glob-parent@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npm.taobao.org/glob-parent/download/glob-parent-3.1.0.tgz#9e6af6299d8d3bd2bd40430832bd113df906c5ae"
@@ -3830,6 +3835,14 @@ http-errors@1.7.3, http-errors@^1.3.1, http-errors@^1.6.3, http-errors@~1.7.2:
     setprototypeof "1.1.1"
     statuses ">= 1.5.0 < 2"
     toidentifier "1.0.0"
+
+http-errors@~1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npm.taobao.org/http-errors/download/http-errors-1.4.0.tgz#6c0242dea6b3df7afda153c71089b31c6e82aabf"
+  integrity sha1-bAJC3qaz33r9oVPHEImzHG6Cqr8=
+  dependencies:
+    inherits "2.0.1"
+    statuses ">= 1.2.1 < 2"
 
 http-errors@~1.6.2:
   version "1.6.3"
@@ -5747,6 +5760,14 @@ path-key@^2.0.0, path-key@^2.0.1:
   resolved "https://registry.npm.taobao.org/path-key/download/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
   integrity sha1-QRyttXTFoUDTpLGRDUDYDMn0C0A=
 
+path-match@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.npm.taobao.org/path-match/download/path-match-1.2.4.tgz#a62747f3c7e0c2514762697f24443585b09100ea"
+  integrity sha1-pidH88fgwlFHYml/JEQ1hbCRAOo=
+  dependencies:
+    http-errors "~1.4.0"
+    path-to-regexp "^1.0.0"
+
 path-parse@^1.0.6:
   version "1.0.6"
   resolved "https://registry.npm.taobao.org/path-parse/download/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
@@ -5762,7 +5783,7 @@ path-to-regexp@2.1.0:
   resolved "https://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-2.1.0.tgz#7e30f9f5b134bd6a28ffc2e3ef1e47075ac5259b"
   integrity sha1-fjD59bE0vWoo/8Lj7x5HB1rFJZs=
 
-path-to-regexp@^1.1.1:
+path-to-regexp@^1.0.0, path-to-regexp@^1.1.1:
   version "1.7.0"
   resolved "https://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-1.7.0.tgz#59fde0f435badacba103a84e9d3bc64e96b9937d"
   integrity sha1-Wf3g9DW62suhA6hOnTvGTpa5k30=
@@ -7408,7 +7429,7 @@ static-extend@^0.1.1:
     define-property "^0.2.5"
     object-copy "^0.1.0"
 
-"statuses@>= 1.4.0 < 2", "statuses@>= 1.5.0 < 2", statuses@^1.5.0, statuses@~1.5.0:
+"statuses@>= 1.2.1 < 2", "statuses@>= 1.4.0 < 2", "statuses@>= 1.5.0 < 2", statuses@^1.5.0, statuses@~1.5.0:
   version "1.5.0"
   resolved "https://registry.npm.taobao.org/statuses/download/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
