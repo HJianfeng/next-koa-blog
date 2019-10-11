@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { formatTime } from '@/utils';
 
 // @param {String}  type     [1: 原创 2: 翻译 3: 转载]
 function ArticleList({ homeDataItem }) {
@@ -15,7 +16,7 @@ function ArticleList({ homeDataItem }) {
             { homeDataItem.type === 3 ? '转载' : null}
           </li>
           <li className="article-author dot">作者</li>
-          <li className="article-author dot">{homeDataItem.createTime}</li>
+          <li className="article-author dot">{formatTime(homeDataItem.createTime, '{y}-{m}-{d}')}</li>
           <li className="article-author">{homeDataItem.category || 'js'}</li>
         </ul>
         <div className="article-item-content">{homeDataItem.title}</div>

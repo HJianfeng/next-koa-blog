@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from '@store/home';
 import { getArticeOne } from '@/utils/api/home';
+import Catalog from '@/components/Posts/Catalog';
 import './index.less';
 import 'github-markdown-css';
 import 'highlight.js/styles/tomorrow.css';
@@ -18,7 +19,12 @@ function Post({ articeData }) {
             : ''
           }
         </div>
-        <div className="right-bar">rightbar</div>
+        <div className="right-bar">
+          { articeData && articeData.code === 200 && articeData.data.catalog.length > 0
+            ? <Catalog catalog={articeData.data.catalog} />
+            : null
+          }
+        </div>
       </div>
     </div>
   );

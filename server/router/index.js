@@ -1,6 +1,7 @@
 const Router = require('koa-router');
 const Home = require('../app/controllers/home');
 const Posts = require('../app/controllers/posts');
+const Recommend = require('../app/controllers/recommend');
 
 module.exports = () => {
   const router = new Router({
@@ -15,7 +16,10 @@ module.exports = () => {
   router.put('/article', Home.changeArticle);
   // 删除文章
   router.delete('/article/:id', Home.deleteArticle);
-
+  // 文章详情
   router.get('/article/one', Posts.articleOne);
+  // 推荐文章
+  router.get('/recommend', Recommend.recommend);
+
   return router;
 };

@@ -12,7 +12,7 @@ import { unzip } from '../../../utils/index';
 
 exports.article = async (ctx) => {
   // const params = ctx.query;
-  const articleList = await Article.find();
+  const articleList = await Article.find().sort({ createTime: -1 });
   ctx.body = {
     code: 200,
     data: articleList,
@@ -22,7 +22,7 @@ exports.article = async (ctx) => {
 
 exports.changeArticle = async (ctx) => {
   const {
-    title, summary, content, type, category
+    title, summary, content, type, category, catalog
   } = ctx.request.body;
   if (!title || !content) {
     ctx.body = { code: 500, msg: '缺少参数' };
@@ -34,7 +34,8 @@ exports.changeArticle = async (ctx) => {
     content: unzip(content),
     summary: describe,
     category,
-    type: type || 1
+    type: type || 1,
+    catalog
   };
   const newArticle = await Article.create(data);
   ctx.body = {

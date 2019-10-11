@@ -1,3 +1,4 @@
+/* eslint-disable no-cond-assign */
 
 import React, { useState, useCallback } from 'react';
 import Router from 'next/router';
@@ -48,11 +49,21 @@ function ArticleEditor() {
       message.error('请输入文章');
       return;
     }
+    const catalog = [];
+    const reg = /(#+)\s+?(.+?)\n/g;
+    let regExecRes = null;
+    while ((regExecRes = reg.exec(params.article))) {
+      catalog.push({
+        level: regExecRes[1].length,
+        title: regExecRes[2]
+      });
+    }
     const query = {
       title: params.title,
       summary: params.summary || '',
       category: params.category || '',
-      content: zipArticle
+      content: zipArticle,
+      catalog
     };
     const { data } = await postArtice(query);
     if (data.code === 200) {
