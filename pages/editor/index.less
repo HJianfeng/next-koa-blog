@@ -1,22 +1,44 @@
 // 引入全局变量
 @import '~static/css/common.less';
 
-.editor-container {
-  padding-top: 20px;
+.for-container {
+  height: calc(100vh - 45px) !important;
+  .for-toolbar {
+    padding: 0;
+    border-radius: 0 !important;
+  }
+}
+.editor-page-container {
   overflow: hidden;
+  height: 100%;
   .editor-title {
     display: flex;
-    margin-bottom: 20px;
     align-items: center;
-    height: 40px;
+    height: 45px;
     justify-content: center;
-    .input {
-      width: 60%;
+    .gutter-row {
+      width: 100%;
       height: 100%;
-      margin-right: 20px;
+      .gutter-col {
+        height: 100%;
+      }
     }
-    .button {
+    .input {
+      width: 100%;
+      border-radius: 0;
       height: 100%;
+    }
+    .save-btn {
+      width: 100%;
+      height: 100%;
+      background-color: #1890ff;
+      color: #fff;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Microsoft YaHei;
+      cursor: pointer;
     }
   }
   .editor-describe {

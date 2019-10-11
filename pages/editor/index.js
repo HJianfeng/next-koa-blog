@@ -1,13 +1,15 @@
 
 import React, { useState, useCallback } from 'react';
+import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import {
-  Input, Button, message, Col, Row
+  Input, message, Col, Row
 } from 'antd';
 import { postArtice } from '@/utils/api/home';
+import './index.less';
+// 编辑器
 import { zip } from '@/utils';
 import marked from '@/components/marked';
-import './index.less';
 
 const Editor = dynamic(import('for-editor'), {
   ssr: false
@@ -55,41 +57,48 @@ function ArticleEditor() {
     const { data } = await postArtice(query);
     if (data.code === 200) {
       message.success('发布成功');
+      Router.push('/');
     } else {
       message.error(data.msg);
     }
   }, []);
+
   return (
-    <div className="editor-container">
+    <div className="editor-page-container">
       <div className="editor-title">
-        <Input value={title} onChange={(e) => { changeTitle(e); }} className="input" placeholder="请输入标题" />
-        <Button
-          type="primary"
-          onClick={() => {
-            saveArticle({
-              title, article, summary, category
-            });
-          }}
-        >
-          保存文章
-        </Button>
-      </div>
-      <div className="editor-describe">
-        <Row gutter={16}>
-          <Col className="gutter-row" span={12}>
+        <Row gutter={0} className="gutter-row">
+          <Col className="gutter-col" span={12}>
+            <Input value={title} onChange={(e) => { changeTitle(e); }} className="input" placeholder="请输入标题" />
+          </Col>
+          <Col className="gutter-col" span={5}>
             <Input value={summary} onChange={(e) => { changeSummary(e); }} className="input" placeholder="请输入简介" />
           </Col>
-          <Col className="gutter-row" span={4}>
+          <Col className="gutter-col" span={5}>
             <Input value={category} onChange={(e) => { changeCategory(e); }} className="input" placeholder="请输入分类" />
+          </Col>
+          <Col className="gutter-col" span={2}>
+            <div
+              className="save-btn"
+              onClick={() => {
+                saveArticle({
+                  title, article, summary, category
+                });
+              }}
+            >
+              保存文章
+            </div>
           </Col>
         </Row>
       </div>
-      <Editor
-        preview
-        subfield
-        value={article}
-        onChange={val => changeArticle(val)}
-      />
+      <div>
+        <Editor
+          preview
+          subfield
+          expand={false}
+          value={article}
+          onChange={val => changeArticle(val)}
+        />
+      </div>
     </div>
   );
 }

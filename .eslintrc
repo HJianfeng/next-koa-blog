@@ -24,7 +24,8 @@
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
     "comma-dangle": ["error", "never"],
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "jsx-a11y/no-static-element-interactions": "off"
   },
   "plugins": ["import"]
 }
