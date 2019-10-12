@@ -41,6 +41,10 @@ function ArticleEditor() {
 
   const saveArticle = useCallback(async (params) => {
     const zipArticle = zip(marked(params.article));
+    if (!params.category || params.category === '') {
+      message.error('请输入分类');
+      return;
+    }
     if (!params.title || params.title === '') {
       message.error('请输入标题');
       return;
