@@ -24,3 +24,12 @@ export function postArtice(data) {
     data
   });
 }
+
+
+export function getRecommend(params) {
+  return axios({
+    url: '/api/recommend',
+    method: 'get',
+    params
+  });
+}

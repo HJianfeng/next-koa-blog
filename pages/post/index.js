@@ -2,13 +2,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from '@store/home';
-import { getArticeOne } from '@/utils/api/home';
+import Recommend from '@/components/Recommend';
+import { getArticeOne, getRecommend } from '@/utils/api/home';
 import Catalog from '@/components/Posts/Catalog';
+
 import './index.less';
 import 'github-markdown-css';
 import 'highlight.js/styles/tomorrow.css';
 
-function Post({ articeData }) {
+function Post({ articeData, recommendData }) {
   return (
     <div className="post-container">
       <div className="post-content">
@@ -20,6 +22,10 @@ function Post({ articeData }) {
           }
         </div>
         <div className="right-bar">
+          { recommendData && recommendData.code === 200
+            ? <Recommend recommendData={recommendData.data} />
+            : null
+          }
           { articeData && articeData.code === 200 && articeData.data.catalog.length > 0
             ? <Catalog catalog={articeData.data.catalog} />
             : null
@@ -34,9 +40,17 @@ Post.getInitialProps = async (ctx) => {
   if (ctx.req && ctx.res) {
     const { id } = ctx.query;
     const params = { id };
-    const result = await getArticeOne(params);
+    const recommendParams = {
+      pageSize: 5,
+      postId: id
+    };
+    const [artice, recommendData] = await Promise.all([
+      getArticeOne(params),
+      getRecommend(recommendParams)
+    ]);
     return {
-      articeData: result.data
+      articeData: artice.data,
+      recommendData: recommendData.data
     };
   }
   return {};

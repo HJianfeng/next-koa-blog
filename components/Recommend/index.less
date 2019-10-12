@@ -1,0 +1,49 @@
+
+
+.recommend-container {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 1.5rem;
+  .recommend-title {
+    padding: 1rem 1.3rem;
+    border-bottom: 1px solid hsla(0,0%,59.2%,.1);
+    font-size: 1.16rem;
+    line-height: 1.29;
+    color: #333;
+    .icon {
+      margin-right: 8px;
+      color: violet;
+    }
+  }
+  .recommend-item {
+    display: block;
+    padding: .8rem 1.3rem;
+    cursor: pointer;
+    .recommend-item-title {
+      font-size: 1.16rem;
+      color: #333;
+    }
+    .recommend-item-bar {
+      display: flex;
+      margin-top: .6rem;
+      .placeholder {
+        flex: 1;
+      }
+      .bar-item {
+        display: flex;
+        align-items: center;
+        .icon {
+          color: #b2bac2;
+          font-size: 1.2rem;
+        }
+        .num {
+          color: #b2bac2;
+          margin-left: .4rem;
+        }
+      }
+    }
+    &:hover {
+      background-color: hsla(0,0%,85.1%,.1);
+    }
+  }
+}
