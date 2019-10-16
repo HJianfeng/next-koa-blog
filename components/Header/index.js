@@ -11,8 +11,8 @@ function Header() {
         </div>
         <div className="header-navbar">
           <div className="header-navbar-item">文章</div>
-          <div className="header-navbar-item">热门</div>
-          <div className="header-navbar-item">探索</div>
+          {/* <div className="header-navbar-item">热门</div>
+          <div className="header-navbar-item">探索</div> */}
         </div>
       </div>
     </div>

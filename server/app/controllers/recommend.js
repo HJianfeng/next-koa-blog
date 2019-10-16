@@ -12,10 +12,24 @@ exports.recommend = async (ctx) => {
   }
   const articleList = await Article.find(findParams)
     .limit(limitNum)
-    .sort({ createTime: -1 });
+    .sort({ viewNum: -1 });
+  // 不足数量通过浏览量补足
+  let supplement = [];
+  const norArr = [];
+  articleList.forEach((item) => {
+    norArr.push({ title: item.title });
+  });
+  if (articleList.length < limitNum) {
+    supplement = await Article.find({
+      $nor: norArr
+    })
+      .limit(limitNum - articleList.length)
+      .sort({ viewNum: -1 });
+  }
+  const returnArticle = articleList.concat(supplement);
   ctx.body = {
     code: 200,
-    data: articleList,
+    data: returnArticle,
     msg: '请求成功'
   };
 };

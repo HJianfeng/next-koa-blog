@@ -18,6 +18,7 @@ exports.articleOne = async (ctx) => {
   } else {
     try {
       const article = await Article.findById(params.id);
+      Article.update({ _id: params.id }, { $set: { viewNum: article.viewNum + 1 } }).exec();
       ctx.body = {
         code: 200,
         data: article,
