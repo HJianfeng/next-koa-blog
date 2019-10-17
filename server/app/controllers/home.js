@@ -2,7 +2,7 @@
 /* eslint-disable require-atomic-updates */
 /* eslint-disable no-use-before-define */
 import Article from '../models/article';
-
+import { getPageNum } from '../utils';
 import { unzip } from '../../../utils/index';
 /**
  * 文章列表
@@ -11,9 +11,19 @@ import { unzip } from '../../../utils/index';
  */
 
 exports.article = async (ctx) => {
-  // const params = ctx.query;
-  const articleList = await Article.find().sort({ createTime: -1 });
+  const { page, pageSize } = ctx.query;
+  const size = Number(pageSize) || 10;
+  const currentPage = Number(page) || 1;
+
+  const skipSize = (currentPage - 1) * size;
+  const articleList = await Article.find()
+    .limit(size)
+    .skip(skipSize)
+    .sort({ createTime: -1 });
+  const total = await Article.count();
+  const pageObj = getPageNum(total, size, currentPage);
   ctx.body = {
+    ...pageObj,
     code: 200,
     data: articleList,
     msg: '请求成功'

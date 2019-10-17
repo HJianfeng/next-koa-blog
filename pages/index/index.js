@@ -33,7 +33,7 @@ function Home({ homeData, recommendData }) {
 }
 
 Home.getInitialProps = async () => {
-  const params = { page: 1 };
+  const params = { page: 1, pageSize: 10 };
   const recommendParams = { pageSize: 10 };
   const [articeList, recommendData] = await Promise.all([
     getArticeList(params),
