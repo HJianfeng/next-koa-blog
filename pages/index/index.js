@@ -1,25 +1,64 @@
 /* eslint-disable no-underscore-dangle */
-import React from 'react';
-// import SideBar from 'components/Home/SideBar';
+import React, { useState, useCallback } from 'react';
+import { connect } from 'react-redux';
+import InfiniteScroll from 'react-infinite-scroller';
+import { Spin } from 'antd';
+import { actionCreators } from '@store/home';
+
 import Recommend from 'components/Recommend';
 import ArticleList from 'components/Home/ArticleList';
-import { connect } from 'react-redux';
-import { actionCreators } from '@store/home';
+
 import { getArticeList, getRecommend } from '@/utils/api/home';
 import './index.less';
 
 function Home({ homeData, recommendData }) {
+  const [articleList, setArticleList] = useState(homeData.data || []);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [flag, setFlag] = useState(true);
+  const handleInfiniteOnLoad = useCallback(async (current) => {
+    if (flag) {
+      setLoading(true);
+      setFlag(false);
+      const params = {
+        page: current + 1,
+        pageSize: 10
+      };
+      const { data } = await getArticeList(params);
+      setPage(data.current);
+      setLoading(false);
+      if (data.code === 200 && data.data.length > 0) {
+        setFlag(true);
+        const newArr = articleList.concat(data.data);
+        setArticleList(newArr);
+      }
+    }
+  }, [flag]);
+
   return (
     <div className="home-container">
       <div className="home-content">
         <div className="home-article">
-          <div className="article-list">
+          <InfiniteScroll
+            initialLoad={false}
+            pageStart={0}
+            loadMore={() => { handleInfiniteOnLoad(page); }}
+            hasMore={page < homeData.page}
+          >
+            <div className="article-list">
+              {
+                articleList.map((item) => {
+                  return <ArticleList key={item._id} homeDataItem={item} />;
+                })
+              }
+            </div>
+            <div className="loading-container"><Spin spinning={loading} /></div>
             {
-              homeData.data.map((item) => {
-                return <ArticleList key={item._id} homeDataItem={item} />;
-              })
+              articleList.length >= homeData.total
+                ? <div className="loading-container">我是有底线的</div> : ''
             }
-          </div>
+
+          </InfiniteScroll>
         </div>
         <div className="home-aside">
           { recommendData && recommendData.code === 200
