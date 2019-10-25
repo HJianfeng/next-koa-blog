@@ -1,7 +1,8 @@
 import * as constants from './constants';
 
 const defaultState = {
-  userInfo: {}
+  userInfo: {},
+  xtoken: ''
 };
 
 export default (state = defaultState, action) => {
@@ -9,6 +10,10 @@ export default (state = defaultState, action) => {
     case constants.CHANGE_USER_INFO:
       return Object.assign({}, state, {
         userInfo: action.user
+      });
+    case constants.X_TOKEN:
+      return Object.assign({}, state, {
+        xtoken: action.xtoken
       });
     default:
       return state;

@@ -1,8 +1,11 @@
 /* eslint-disable require-atomic-updates */
 import bcrypt from 'bcrypt-nodejs';
 import UserLogin from '../models/user';
+import { Auth } from '../utils';
 
 const jsonwebtoken = require('jsonwebtoken');
+
+const secretOrPublicKey = 'secret';
 /**
  * 登录
  * @param {String}  userName      [description]
@@ -17,7 +20,7 @@ exports.login = async (ctx) => {
     const token = jsonwebtoken.sign({
       data: userInfo.userName,
       exp: Math.floor(Date.now() / 1000) + (60 * 60)
-    }, 'secret');
+    }, secretOrPublicKey);
     ctx.set('x-token', token);
     const returnData = {
       id: userInfo._id,
@@ -75,5 +78,54 @@ exports.register = async (ctx) => {
         msg: '注册失败！'
       };
     }
+  }
+};
+
+/**
+ * 获取用户
+ */
+exports.getUserOne = async (ctx) => {
+  const params = ctx.query;
+  if (!params.id || params.id === '') {
+    ctx.body = {
+      code: 400,
+      data: {},
+      msg: '请输入ID'
+    };
+  } else {
+    try {
+      const userInfo = await UserLogin.findById(params.id);
+      ctx.body = {
+        code: 200,
+        data: userInfo,
+        msg: '请求成功'
+      };
+    } catch (error) {
+      ctx.body = {
+        code: 500,
+        data: error,
+        msg: '请输入正确的ID'
+      };
+    }
+  }
+};
+
+/**
+ * 获取自己的用户信息
+ */
+exports.getMyUser = async (ctx) => {
+  try {
+    const verifyInfo = await Auth(ctx);
+    const userInfo = await UserLogin.findOne(
+      { userName: verifyInfo.data },
+      { password: 0, __v: 0 }
+    );
+    ctx.body = {
+      code: 200,
+      data: userInfo,
+      msg: '请求成功'
+    };
+  } catch (noAuth) {
+    ctx.body = noAuth;
   }
 };

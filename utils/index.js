@@ -1,5 +1,6 @@
 import pako from 'pako';
 
+const isServer = typeof window === 'undefined';
 export const unzip = (binaryString) => {
   return pako.inflate(binaryString, { to: 'string' });
 };
@@ -92,3 +93,38 @@ export function formatTime(time, option) {
     }分`
   );
 }
+
+export const setCookie = (name, value) => {
+  if (!isServer) {
+    const Days = 5;
+    const exp = new Date();
+    exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${escape(value)};expires=${exp.toGMTString()};path=/`;
+  }
+};
+export const getCookie = (name) => {
+  if (!isServer) {
+    const reg = new RegExp(`(^| )${name}=([^;]*)(;|$)`);
+    const arr = document.cookie.match(reg);
+    if (arr) {
+      return unescape(arr[2]);
+    }
+  }
+  return null;
+};
+export const getServerCookie = (cookie, name) => {
+  const reg = new RegExp(`(^| )${name}=([^;]*)(;|$)`);
+  const arr = cookie.match(reg);
+  if (arr) {
+    return unescape(arr[2]);
+  }
+  return null;
+};
+export const delCookie = (name) => {
+  if (!isServer) {
+    const exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    const cval = getCookie(name);
+    if (cval != null)document.cookie = `${name}=${cval};expires=${exp.toGMTString()};path=/`;
+  }
+};

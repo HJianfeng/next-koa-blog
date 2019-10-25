@@ -10,6 +10,44 @@
     margin: auto;
     margin-top: 10px;
     display: flex;
+    .post-top {
+      margin-bottom: 3rem;
+      .post-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1.5;
+      }
+      .post-tools {
+        margin-top: 10px;
+        display: flex;
+        .post-tools-item {
+          color: #909090;
+          font-size: 12px;
+          margin-right: 10px;
+          &.tools-operation {
+            cursor: pointer;
+            color: #1264b6;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+        .dot {
+          margin-right: 5px;
+          display: flex;
+          align-items: center;
+          &::after {
+            content: '';
+            margin-left: 4px;
+            width: 3px;
+            height: 3px;
+            border-radius: 100%;
+            background-color: rgb(178, 186, 194);
+            display: inline-block;
+          }
+        }
+      }
+    }
   }
 }
 .markdown-container {

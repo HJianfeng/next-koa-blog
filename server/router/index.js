@@ -24,6 +24,8 @@ module.exports = () => {
   // 登录注册
   router.post('/login', User.login);
   router.post('/register', User.register);
+  router.get('/user', User.getUserOne);
+  router.get('/my/user', User.getMyUser);
 
   return router;
 };

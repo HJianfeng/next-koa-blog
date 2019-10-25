@@ -118,7 +118,8 @@ function ArticleEditor() {
   );
 }
 
-ArticleEditor.getInitialProps = async () => {
+ArticleEditor.getInitialProps = async (ctx) => {
+  console.log(ctx);
   return {
     headerHidden: true,
     FooterHidden: true

@@ -1,25 +1,36 @@
 import React, { useCallback, useState } from 'react';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 import { actionCreators } from '@store/user';
 import {
   Icon, Input, Button, message
 } from 'antd';
-
+import { login } from '@/utils/api/user';
 import './style.less';
 
 function Login() {
   const [name, setName] = useState('');
   const [pass, setPass] = useState('');
-  const handleSubmit = useCallback((userName, passWord) => {
+  const handleSubmit = useCallback(async (userName, password) => {
     if (!userName || userName === '') {
       message.warning('请输入账号');
       return false;
     }
-    if (!passWord || passWord.lenght < 6) {
+    if (!password || password.lenght < 6) {
       message.warning('密码不少于6位');
       return false;
     }
-    return false;
+    const param = {
+      userName, password
+    };
+    const { data } = await login(param);
+    if (data.code === 200) {
+      message.success('登录成功');
+      Router.push('/');
+    } else {
+      message.error(data.msg);
+    }
+    return data;
   }, []);
   const changeInput = useCallback((e, type) => {
     const { value } = e.target;

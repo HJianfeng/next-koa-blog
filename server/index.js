@@ -48,7 +48,6 @@ app.prepare().then(() => {
   });
   server.use(async (ctx, nextF) => {
     ctx.res.statusCode = 200;
-
     /* 当token验证异常时候的处理，如token过期、token错误 */
     await nextF().catch((err) => {
       if (err.status === 401) {
@@ -68,12 +67,11 @@ app.prepare().then(() => {
     path: [
       /^\/api\/login/,
       /^\/api\/register/,
-      /^((?!\/api).)*$/ // 设置除了私有接口外的其它资源，可以不需要认证访问
+      /^((?!\/api\/user).)*$/ // 设置除了 /api/user 接口外的其它资源，可以不需要认证访问
     ]
   }));
   server.use(apiRouter.routes());
   server.use(router.routes());
-
   server.listen(port, () => {
     console.log(
       `> Server listening at http://localhost:${port} as ${dev ? 'development' : process.env.NODE_ENV}`,

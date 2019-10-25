@@ -87,7 +87,7 @@ Home.getInitialProps = async () => {
 
 const mapState = (state) => {
   return {
-    scrollFlag: state.home.scrollFlag
+    userInfo: state.user.userInfo
   };
 };
 
