@@ -3,6 +3,13 @@ const jsonwebtoken = require('jsonwebtoken');
 
 const secretOrPublicKey = 'secret';
 
+/**
+ * 获取翻页数据
+ * @param {number} total  总数量
+ * @param {number} pageSize  一页显示条数
+ * @param {number} currentPage  当前页数
+ * @returns {Object}
+ */
 export const getPageNum = (total = 0, pageSize = 10, currentPage = 1) => {
   const page = Math.ceil(Number(total) / Number(pageSize)) || 1;
   return {
@@ -13,6 +20,11 @@ export const getPageNum = (total = 0, pageSize = 10, currentPage = 1) => {
   };
 };
 
+/**
+ * 权限验证
+ * @param {Object} ctx
+ * @returns {Promise}
+ */
 export const Auth = (ctx) => {
   return new Promise((resolve, reject) => {
     const cookieToken = ctx.cookies.get('xtoken');
