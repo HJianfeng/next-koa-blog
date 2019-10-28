@@ -1,4 +1,4 @@
-import React, { useCallback, Fragment } from 'react';
+import React, { useCallback } from 'react';
 import Router from 'next/router';
 import { connect } from 'react-redux';
 import './style.less';
@@ -9,7 +9,6 @@ import { delCookie } from '@/utils';
 
 
 function Header({ userInfo, getUserInfo }) {
-  console.log(userInfo);
   const handelClick = useCallback((type) => {
     switch (type) {
       case 1:

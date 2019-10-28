@@ -26,6 +26,7 @@
 `yarn add`
 
 ## Run development server
+安装MongoDB
 `npm run dev`
 
 ## Build for production

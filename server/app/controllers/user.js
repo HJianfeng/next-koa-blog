@@ -19,7 +19,7 @@ exports.login = async (ctx) => {
   if (compare) {
     const token = jsonwebtoken.sign({
       data: userInfo.userName,
-      exp: Math.floor(Date.now() / 1000) + (60 * 60)
+      exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
     }, secretOrPublicKey);
     ctx.set('x-token', token);
     const returnData = {

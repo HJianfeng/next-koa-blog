@@ -39,26 +39,27 @@ function Home({ homeData, recommendData }) {
     <div className="home-container">
       <div className="home-content">
         <div className="home-article">
-          <InfiniteScroll
-            initialLoad={false}
-            pageStart={0}
-            loadMore={() => { handleInfiniteOnLoad(page); }}
-            hasMore={page < homeData.page}
-          >
-            <div className="article-list">
-              {
+          <div className="home-article-list">
+            <InfiniteScroll
+              initialLoad={false}
+              pageStart={0}
+              loadMore={() => { handleInfiniteOnLoad(page); }}
+              hasMore={page < homeData.page}
+            >
+              <div className="article-list">
+                {
                 articleList.map((item) => {
                   return <ArticleList key={item._id} homeDataItem={item} />;
                 })
               }
-            </div>
-            <div className="loading-container"><Spin spinning={loading} /></div>
-            {
-              articleList.length >= homeData.total
-                ? <div className="loading-container">我是有底线的</div> : ''
-            }
-
-          </InfiniteScroll>
+              </div>
+              <div className="loading-container"><Spin spinning={loading} /></div>
+            </InfiniteScroll>
+          </div>
+          {
+            articleList.length >= homeData.total
+              ? <div className="loading-container">加载完成</div> : ''
+          }
         </div>
         <div className="home-aside">
           { recommendData && recommendData.code === 200

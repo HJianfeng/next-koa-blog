@@ -1,17 +1,33 @@
 /* eslint-disable react/no-danger */
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from '@store/home';
+import { message, Popconfirm } from 'antd';
+import Router from 'next/router';
 import Recommend from '@/components/Recommend';
-import { getArticeOne, getRecommend } from '@/utils/api/home';
+import { getArticeOne, getRecommend, deleteArticle } from '@/utils/api/home';
 import Catalog from '@/components/Posts/Catalog';
 import { formatTime } from '@/utils';
+import marked from '@/components/marked';
 
 import './index.less';
-import 'github-markdown-css';
+import './markdown.less';
 import 'highlight.js/styles/tomorrow.css';
 
 function Post({ articeData, recommendData, userInfo }) {
+  const deletePost = useCallback(async (id) => {
+    if (!id && id === '') return;
+    const { data } = await deleteArticle(id);
+    if (data.code === 200) {
+      message.success('删除成功');
+      Router.push('/');
+    } else {
+      message.error(data.msg);
+    }
+  }, []);
+  const editPost = useCallback(async (id) => {
+    Router.push(`/editor?id=${id}`);
+  }, []);
   return (
     <div className="post-container">
       <div className="post-content">
@@ -28,15 +44,22 @@ function Post({ articeData, recommendData, userInfo }) {
                     {userInfo && userInfo.code === 200 && userInfo.data
                       ? (
                         <Fragment>
-                          <div className="post-tools-item dot tools-operation">编辑</div>
-                          <div className="post-tools-item tools-operation">删除</div>
+                          <div onClick={() => { editPost(articeData.data._id); }} className="post-tools-item dot tools-operation">编辑</div>
+                          <Popconfirm
+                            title="确定要删除这篇文章吗?"
+                            onConfirm={() => { deletePost(articeData.data._id); }}
+                            okText="Yes"
+                            cancelText="No"
+                          >
+                            <div className="post-tools-item tools-operation">删除</div>
+                          </Popconfirm>
                         </Fragment>
                       )
                       : null
                     }
                   </div>
                 </div>
-                <div className="markdown-body" dangerouslySetInnerHTML={{ __html: articeData.data.content }} />
+                <div className="markdown-body" dangerouslySetInnerHTML={{ __html: marked(articeData.data.content) }} />
               </Fragment>
             )
             : ''
@@ -47,7 +70,10 @@ function Post({ articeData, recommendData, userInfo }) {
             ? <Recommend recommendData={recommendData.data} />
             : null
           }
-          { articeData && articeData.code === 200 && articeData.data.catalog.length > 0
+          { articeData
+            && articeData.code === 200
+            && articeData.data.catalog
+            && articeData.data.catalog.length > 0
             ? <Catalog catalog={articeData.data.catalog} />
             : null
           }
@@ -58,23 +84,20 @@ function Post({ articeData, recommendData, userInfo }) {
 }
 
 Post.getInitialProps = async (ctx) => {
-  if (ctx.req && ctx.res) {
-    const { id } = ctx.query;
-    const params = { id };
-    const recommendParams = {
-      pageSize: 5,
-      postId: id
-    };
-    const [artice, recommendData] = await Promise.all([
-      getArticeOne(params),
-      getRecommend(recommendParams)
-    ]);
-    return {
-      articeData: artice.data,
-      recommendData: recommendData.data
-    };
-  }
-  return {};
+  const { id } = ctx.query;
+  const params = { id };
+  const recommendParams = {
+    pageSize: 5,
+    postId: id
+  };
+  const [artice, recommendData] = await Promise.all([
+    getArticeOne(params),
+    getRecommend(recommendParams)
+  ]);
+  return {
+    articeData: artice.data,
+    recommendData: recommendData.data
+  };
 };
 
 const mapState = (state) => {

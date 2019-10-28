@@ -31,9 +31,14 @@ exports.article = async (ctx) => {
   };
 };
 
+/**
+ * 创建和修改文章
+ * @param {[type]}   ctx      [description]
+ * @param {Function} next     [description]
+ */
 exports.changeArticle = async (ctx) => {
   const {
-    title, summary, content, type, category, catalog
+    title, summary, content, type, category, catalog, id
   } = ctx.request.body;
   try {
     await Auth(ctx);
@@ -50,22 +55,40 @@ exports.changeArticle = async (ctx) => {
       type: type || 1,
       catalog
     };
-    const newArticle = await Article.create(data);
-    ctx.body = {
-      code: 200,
-      data: newArticle,
-      msg: '请求成功'
-    };
+    if (!id || id === '') {
+      const newArticle = await Article.create(data);
+      ctx.body = {
+        code: 200,
+        data: newArticle,
+        msg: '请求成功'
+      };
+    } else {
+      Article.update({ _id: id }, data, (err, raw) => {
+        if (err) ctx.body = { code: 500, msg: err };
+        ctx.body = { code: 200, data: raw, msg: '修改成功' };
+      });
+      ctx.body = {
+        code: 200,
+        msg: '修改成功'
+      };
+    }
   } catch (noAuth) {
     ctx.body = noAuth;
   }
 };
 
 exports.deleteArticle = async (ctx) => {
-  const articleList = await Article.find();
-  ctx.body = {
-    code: 200,
-    data: articleList,
-    msg: '请求成功'
-  };
+  const { id } = ctx.params;
+  try {
+    await Auth(ctx);
+    const result = await Article.deleteOne({ _id: id });
+    if (result) {
+      ctx.body = {
+        code: 200,
+        msg: '删除成功'
+      };
+    }
+  } catch (noAuth) {
+    ctx.body = noAuth;
+  }
 };

@@ -33,3 +33,11 @@ export function getRecommend(params) {
     params
   });
 }
+
+
+export function deleteArticle(id) {
+  return axios({
+    url: `/api/article/${id}`,
+    method: 'delete'
+  });
+}
