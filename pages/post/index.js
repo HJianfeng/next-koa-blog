@@ -40,7 +40,7 @@ function Post({ articeData, recommendData, userInfo }) {
             && articeData.code === 200
             && articeData.data.catalog
             && articeData.data.catalog.length > 0
-            ? <Catalog catalog={articeData.data.catalog} />
+            ? <Catalog artice={articeData.data.content} />
             : null
           }
         </div>

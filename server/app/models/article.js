@@ -19,7 +19,6 @@ const articleListSchema = new Schema({
   category: { type: String, default: 'javascript' },
   viewNum: { type: Number, default: 0 },
   updateTime: { type: Number },
-  catalog: { type: Array },
   createTime: { type: Number }
 }, { versionKey: false });
 
