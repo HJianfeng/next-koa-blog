@@ -36,7 +36,7 @@ function Header({ userInfo, getUserInfo }) {
           <Link href="/">
             <a>
               <img className="logo" src="../../static/logo.png" alt="logo" />
-              <p className="name">name</p>
+              <p className="name">行舟</p>
             </a>
           </Link>
         </div>
