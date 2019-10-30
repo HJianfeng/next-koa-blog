@@ -2,12 +2,15 @@
 import React, { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import EditorTop from 'components/EditorComponents/editTop';
+import marked from '@/components/marked';
 import {
   getArticeOne
 } from '@/utils/api/home';
 import './index.less';
-
-const Editor = dynamic(import('for-editor'), {
+// const Editor = dynamic(import('for-editor'), {
+//   ssr: false
+// });
+const Editor = dynamic(import('react-markdown-editor-lite'), {
   ssr: false
 });
 
@@ -20,14 +23,19 @@ function ArticleEditor({ articleData }) {
   return (
     <div className="editor-page-container">
       <EditorTop article={article} articleData={articleData} />
-      <div>
+      <div className="md-editor-content">
         <Editor
+          renderHTML={text => marked(text)}
+          value={article}
+          onChange={val => changeArticle(val.text)}
+        />
+        {/* <Editor
           preview
           subfield
           expand={false}
           value={article}
           onChange={val => changeArticle(val)}
-        />
+        /> */}
       </div>
     </div>
   );

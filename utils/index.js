@@ -1,3 +1,4 @@
+/* eslint-disable no-cond-assign */
 import pako from 'pako';
 
 const isServer = typeof window === 'undefined';
@@ -127,4 +128,23 @@ export const delCookie = (name) => {
     const cval = getCookie(name);
     if (cval != null)document.cookie = `${name}=${cval};expires=${exp.toGMTString()};path=/`;
   }
+};
+
+/**
+ * 计算markdown目录
+ * @param {number} time
+ * @param {string} option
+ * @returns {string}
+ */
+export const getCatalog = (article) => {
+  const catalog = [];
+  const reg = /(#+)\s+?(.+?)\n/g;
+  let regExecRes = null;
+  while ((regExecRes = reg.exec(article))) {
+    catalog.push({
+      level: regExecRes[1].length,
+      title: regExecRes[2]
+    });
+  }
+  return catalog;
 };

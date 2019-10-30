@@ -15,6 +15,7 @@ marked.setOptions({
   smartypants: false
 });
 
+
 const renderer = new marked.Renderer();
 
 // 段落解析
@@ -27,9 +28,13 @@ const linkParse = (href, title, text) => {
       target='_blank'
       }>${text}</a>`;
 };
-
+const slugger = new marked.Slugger();
+const heading = (text, level) => {
+  return `<h${level} id="${slugger.slug('heading')}">${text}</h${level}>`;
+};
 renderer.paragraph = paragraphParse;
 renderer.link = linkParse;
+renderer.heading = heading;
 
 export default (content) => {
   if (typeof content !== 'string') return '';

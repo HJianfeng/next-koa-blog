@@ -1,4 +1,3 @@
-/* eslint-disable no-cond-assign */
 import React, { useState, useCallback } from 'react';
 import Router from 'next/router';
 import {
@@ -43,21 +42,11 @@ function EditorTop({ articleData, article }) {
       return;
     }
     const zipArticleMarkdown = zip(params.article);
-    const catalog = [];
-    const reg = /(#+)\s+?(.+?)\n/g;
-    let regExecRes = null;
-    while ((regExecRes = reg.exec(params.article))) {
-      catalog.push({
-        level: regExecRes[1].length,
-        title: regExecRes[2]
-      });
-    }
     const query = {
       title: params.title,
       summary: params.summary || '',
       category: params.category || '',
-      content: zipArticleMarkdown,
-      catalog
+      content: zipArticleMarkdown
     };
     if (articleData._id && articleData._id !== '') {
       query.id = articleData._id;

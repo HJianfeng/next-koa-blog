@@ -38,7 +38,7 @@ exports.article = async (ctx) => {
  */
 exports.changeArticle = async (ctx) => {
   const {
-    title, summary, content, type, category, catalog, id
+    title, summary, content, type, category, id
   } = ctx.request.body;
   try {
     await Auth(ctx);
@@ -52,8 +52,7 @@ exports.changeArticle = async (ctx) => {
       content: unzip(content),
       summary: describe,
       category,
-      type: type || 1,
-      catalog
+      type: type || 1
     };
     if (!id || id === '') {
       const newArticle = await Article.create(data);
