@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { actionCreators } from '@store/home';
 import Recommend from '@/components/Recommend';
 import PostTools from '@/components/PostComponents/postTools';
-import { getArticeOne, getRecommend } from '@/utils/api/home';
-import Catalog from '@/components/Posts/Catalog';
+import Catalog from '@/components/PostComponents/Catalog';
 import marked from '@/components/marked';
+import { getArticeOne, getRecommend } from '@/utils/api/home';
 
 import './index.less';
 import './markdown.less';
@@ -38,8 +38,7 @@ function Post({ articeData, recommendData, userInfo }) {
           }
           { articeData
             && articeData.code === 200
-            && articeData.data.catalog
-            && articeData.data.catalog.length > 0
+            && articeData.data.content
             ? <Catalog artice={articeData.data.content} />
             : null
           }

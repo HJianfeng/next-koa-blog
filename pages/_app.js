@@ -29,9 +29,26 @@ class MyApp extends App {
   }
 
   componentDidMount() {
+    /* eslint-disable */
+    var _hmt = _hmt || [];
+    (function () {
+      let hm = document.createElement('script');
+      hm.src = 'https://hm.baidu.com/hm.js?d71667f63372cbb013eb0b535f067be1';
+      let s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(hm, s);
+    }());
   }
 
   componentDidUpdate() {
+    const { location } = window;
+    const contentUrl = location.pathname + location.hash;
+    if (window._czc) {
+      const refererUrl = '/';
+      window._czc.push(['_trackPageview', contentUrl, refererUrl]);
+    }
+    if (window._hmt) {
+      window._hmt.push(['_trackPageview', contentUrl]);
+    }
   }
 
   render() {
