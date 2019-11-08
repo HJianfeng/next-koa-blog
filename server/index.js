@@ -1,5 +1,6 @@
 /* eslint-disable require-atomic-updates */
 /* eslint-disable no-console */
+
 import './app/db';
 
 const Koa = require('koa');

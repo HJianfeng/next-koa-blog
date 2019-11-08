@@ -1,30 +1,41 @@
 /* eslint-disable no-cond-assign */
 import React, { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
+import _ from 'lodash';
 import EditorTop from 'components/EditorComponents/editTop';
 import marked from '@/components/marked';
-import {
-  getArticeOne
-} from '@/utils/api/home';
+import { getArticeOne } from '@/utils/api/home';
+import { wordCount } from '@/utils';
 import './index.less';
-// const Editor = dynamic(import('for-editor'), {
-//   ssr: false
-// });
+
 const Editor = dynamic(import('react-markdown-editor-lite'), {
   ssr: false
 });
 
 function ArticleEditor({ articleData }) {
+  let initWord = 0;
+  if (articleData.content) {
+    initWord = wordCount(articleData.content);
+  }
   const [article, setArticle] = useState(articleData.content || '');
+  const [wordNum, setWordNum] = useState(initWord);
 
+  const changeWord = _.throttle((value) => {
+    const count = wordCount(value);
+    setWordNum(count);
+  }, 1000);
   const changeArticle = useCallback((value) => {
     setArticle(value);
+    changeWord(value);
   }, []);
+
   return (
     <div className="editor-page-container">
       <EditorTop article={article} articleData={articleData} />
       <div className="md-editor-content">
+        <div className={wordNum > 3000 ? 'word-num active' : 'word-num'}>{`字数：${wordNum}`}</div>
         <Editor
+          className="editor-content"
           renderHTML={text => marked(text)}
           value={article}
           onChange={val => changeArticle(val.text)}
