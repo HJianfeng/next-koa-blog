@@ -1,10 +1,12 @@
+/* eslint-disable no-restricted-globals */
 import axios from 'axios';
 import { message } from 'antd';
 import qs from 'qs';
 import { setCookie } from './index';
 
+const isServer = typeof window === 'undefined';
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:3000',
+  baseURL: !isServer ? location.origin : 'http://127.0.0.1:3000',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
@@ -12,7 +14,6 @@ const instance = axios.create({
   withCredentials: true,
   transformRequest: [data => qs.stringify(data)] // 参数转换
 });
-const isServer = typeof window === 'undefined';
 // 拦截器
 instance.interceptors.response.use((response) => {
   const res = response.data;
