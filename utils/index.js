@@ -115,10 +115,12 @@ export const getCookie = (name) => {
   return null;
 };
 export const getServerCookie = (cookie, name) => {
-  const reg = new RegExp(`(^| )${name}=([^;]*)(;|$)`);
-  const arr = cookie.match(reg);
-  if (arr) {
-    return unescape(arr[2]);
+  if (cookie) {
+    const reg = new RegExp(`(^| )${name}=([^;]*)(;|$)`);
+    const arr = cookie.match(reg);
+    if (arr) {
+      return unescape(arr[2]);
+    }
   }
   return null;
 };
