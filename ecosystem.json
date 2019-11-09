@@ -1,0 +1,27 @@
+{
+  "apps" : [{
+     "name" : "XingZhou",
+     "script" : "start.js",
+     "env": {
+       "COMMON_VARIABLE": "true"
+     },
+     "env_production": {
+       "NODE_ENV": "production"
+     }
+  }],
+  "deploy" : {
+    "production" : {
+      "user" : "root",
+      "host" : ["120.78.162.6"],
+      "post" : "22",
+      "ref"  : "origin/master",
+      "repo" : "git@github.com:HJianfeng/xingzhou.git",
+      "path" : "/www/xingzhou/production",
+      "ssh_options": "StrictHostKeyChecking=no",
+      "post-deploy" : "yarn add ",
+      "env": {
+        "NODE_ENV": "production"
+      }
+     }
+  }
+}
