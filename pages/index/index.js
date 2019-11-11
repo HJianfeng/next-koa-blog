@@ -53,9 +53,9 @@ function Home({ homeData, recommendData }) {
                 })
               }
               </div>
-              <div className="loading-container"><Spin spinning={loading} /></div>
             </InfiniteScroll>
           </div>
+          <div className="loading-container"><Spin spinning={loading} /></div>
           {
             articleList.length >= homeData.total
               ? <div className="loading-container">加载完成</div> : ''

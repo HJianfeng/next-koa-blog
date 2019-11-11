@@ -14,7 +14,7 @@ function Recommend({ recommendData, title = '你可能感兴趣' }) {
         {
           recommendData.map((item) => {
             return (
-              <div className="recommend-item" onClick={() => Router.push(`/post/${item._id}`)}>
+              <div key={item._id} className="recommend-item" onClick={() => Router.push(`/post/${item._id}`)}>
                 <div className="recommend-item-title">{item.title}</div>
                 <div className="recommend-item-bar">
                   <div className="placeholder" />

@@ -29,33 +29,6 @@
       padding: 1.5rem 2rem;
       cursor: pointer;
       border-bottom: 1px solid #eee;
-      &-top {
-        display: flex;
-        align-items: baseline;
-        .article-label {
-          font-size: 12px;
-          color: #b71ed7;
-          font-weight: 500;
-        }
-        .article-author {
-          color: #b2bac2;
-          font-size: 12px;
-        }
-        .dot {
-          margin-right: 5px;
-          display: flex;
-          align-items: center;
-          &::after {
-            content: '';
-            margin-left: 4px;
-            width: 2px;
-            height: 2px;
-            border-radius: 100%;
-            background-color: rgb(178, 186, 194);
-            display: inline-block;
-          }
-        }
-      }
       &-content {
         margin: 10px 0;
         font-size: 16px;
@@ -86,6 +59,29 @@
         .view-num {
           font-size: 12px;
           color: #ccc;
+        }
+        .article-label {
+          font-size: 12px;
+          color: #b71ed7;
+          font-weight: 500;
+        }
+        .article-author {
+          color: #b2bac2;
+          font-size: 12px;
+        }
+        .dot {
+          margin-right: 5px;
+          display: flex;
+          align-items: center;
+          &::after {
+            content: '';
+            margin-left: 4px;
+            width: 2px;
+            height: 2px;
+            border-radius: 100%;
+            background-color: rgb(178, 186, 194);
+            display: inline-block;
+          }
         }
       }
       &:last-child {
