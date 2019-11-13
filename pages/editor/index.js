@@ -9,7 +9,7 @@ import { wordCount } from '@/utils';
 import './index.less';
 
 const Editor = dynamic(import('react-markdown-editor-lite'), {
-  ssr: true
+  loading: () => <p>...</p>
 });
 
 function ArticleEditor({ articleData }) {
@@ -40,13 +40,6 @@ function ArticleEditor({ articleData }) {
           value={article}
           onChange={val => changeArticle(val.text)}
         />
-        {/* <Editor
-          preview
-          subfield
-          expand={false}
-          value={article}
-          onChange={val => changeArticle(val)}
-        /> */}
       </div>
     </div>
   );
