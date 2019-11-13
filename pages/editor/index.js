@@ -8,7 +8,7 @@ import { getArticeOne } from '@/utils/api/home';
 import { wordCount } from '@/utils';
 import './index.less';
 
-const Editor = dynamic(() => import('react-markdown-editor-lite/lib'), {
+const Editor = dynamic(() => import('react-markdown-editor-lite'), {
   ssr: false
 });
 
