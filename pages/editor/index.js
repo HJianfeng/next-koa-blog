@@ -28,7 +28,7 @@ function ArticleEditor({ articleData }) {
     setArticle(value);
     changeWord(value);
   }, []);
-
+  console.log(Editor);
   return (
     <div className="editor-page-container">
       <EditorTop article={article} articleData={articleData} />
