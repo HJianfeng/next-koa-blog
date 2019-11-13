@@ -30,7 +30,8 @@ const linkParse = (href, title, text) => {
 };
 const slugger = new marked.Slugger();
 const heading = (text, level) => {
-  return `<h${level} id="${slugger.slug('heading')}">${text}</h${level}>`;
+  const titleId = slugger.slug('heading');
+  return `<h${level} data-id="${titleId}" data-level="${level}" data-text="${text}" id="${titleId}">${text}</h${level}>`;
 };
 renderer.paragraph = paragraphParse;
 renderer.link = linkParse;

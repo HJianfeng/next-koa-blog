@@ -2,6 +2,7 @@ import App, { Container } from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
+// import Router from 'next/router';
 import axios from '@/utils/axios';
 import Layout from '../components/Layout';
 import makeStore from '../store';
@@ -9,6 +10,13 @@ import 'antd/dist/antd.less';
 import '../static/css/reset.less';
 import { actionCreators } from '../store/Reducer/user';
 import { getServerCookie } from '@/utils';
+
+// Router.onRouteChangeStart = () => {
+//   NProgress.start();
+// };
+// Router.onRouteChangeComplete = () => {
+//   NProgress.stop();
+// };
 
 const isServer = typeof window === 'undefined';
 class MyApp extends App {
@@ -27,6 +35,7 @@ class MyApp extends App {
     await ctx.store.dispatch(actionCreators.getUserInfoAction());
     return { pageProps };
   }
+
 
   componentDidMount() {
     /* eslint-disable */

@@ -13,6 +13,7 @@ import './markdown.less';
 import 'highlight.js/styles/tomorrow.css';
 
 function Post({ articeData, recommendData, userInfo }) {
+  const artice = marked(articeData.data.content);
   return (
     <div className="post-container">
       <div className="post-content">
@@ -25,7 +26,7 @@ function Post({ articeData, recommendData, userInfo }) {
                   <div className="post-title">{articeData.data.title}</div>
                   <PostTools userInfo={userInfo} articeData={articeData} />
                 </div>
-                <div className="markdown-body" dangerouslySetInnerHTML={{ __html: marked(articeData.data.content) }} />
+                <div className="markdown-body" dangerouslySetInnerHTML={{ __html: artice }} />
               </Fragment>
             )
             : ''
@@ -39,7 +40,7 @@ function Post({ articeData, recommendData, userInfo }) {
           { articeData
             && articeData.code === 200
             && articeData.data.content
-            ? <Catalog artice={articeData.data.content} />
+            ? <Catalog artice={artice} />
             : null
           }
         </div>

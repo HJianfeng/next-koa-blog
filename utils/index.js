@@ -141,12 +141,14 @@ export const delCookie = (name) => {
  */
 export const getCatalog = (article) => {
   const catalog = [];
-  const reg = /(#+)\s+?(.+?)\n/g;
+  // const reg = /(#+)\s+?(.+?)\n/g; // 匹配 ####
+  const reg = /data-id="([^/s]*?)"\s?data-level="([^/s]*?)"\s?data-text="([^/s]*?)"/g; // 匹配 htm
   let regExecRes = null;
   while ((regExecRes = reg.exec(article))) {
     catalog.push({
-      level: regExecRes[1].length,
-      title: regExecRes[2]
+      id: regExecRes[1],
+      level: regExecRes[2],
+      title: regExecRes[3]
     });
   }
   return catalog;
