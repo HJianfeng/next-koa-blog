@@ -8,9 +8,7 @@ import { getArticeOne } from '@/utils/api/home';
 import { wordCount } from '@/utils';
 import './index.less';
 
-const Editor = dynamic(import('react-markdown-editor-lite'), {
-  loading: () => <p>...</p>
-});
+const Editor = dynamic(() => import('react-markdown-editor-lite'));
 
 function ArticleEditor({ articleData }) {
   let initWord = 0;
@@ -28,7 +26,6 @@ function ArticleEditor({ articleData }) {
     setArticle(value);
     changeWord(value);
   }, []);
-  console.log(Editor);
   return (
     <div className="editor-page-container">
       <EditorTop article={article} articleData={articleData} />
