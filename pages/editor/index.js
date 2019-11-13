@@ -9,7 +9,7 @@ import { wordCount } from '@/utils';
 import './index.less';
 
 const Editor = dynamic(import('react-markdown-editor-lite'), {
-  ssr: false
+  ssr: true
 });
 
 function ArticleEditor({ articleData }) {
