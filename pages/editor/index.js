@@ -2,18 +2,14 @@
 import React, { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import _ from 'lodash';
-// import EditorTop from 'components/EditorComponents/editTop';
+import EditorTop from 'components/EditorComponents/editTop';
 import marked from '@/components/marked';
 import { getArticeOne } from '@/utils/api/home';
 import { wordCount } from '@/utils';
 import './index.less';
 
 const Editor = dynamic(
-  () => import('react-markdown-editor-lite'),
-  { ssr: false }
-);
-const EditorTop = dynamic(
-  () => import('components/EditorComponents/editTop'),
+  () => import('react-markdown-editor-fix'),
   { ssr: false }
 );
 

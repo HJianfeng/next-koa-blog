@@ -7248,6 +7248,11 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   resolved "https://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
 
+react-markdown-editor-fix@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/react-markdown-editor-fix/-/react-markdown-editor-fix-0.0.3.tgz#6d4ea257dbb0eb672cb7e1560a8316ffba3f5e84"
+  integrity sha512-BRdxTTxo4VVXmBkYpA3hYlTH+j0DO6p6ZRwVl6+qP47gV3xiRlNOanDZs5TCX9IPEXM3xbKe2qm25UAV0H44vQ==
+
 react-markdown-editor-lite@^0.4.3:
   version "0.4.3"
   resolved "https://registry.npm.taobao.org/react-markdown-editor-lite/download/react-markdown-editor-lite-0.4.3.tgz#f0a58dd9347e3031f4f0d127145b43a38f2e0d59"
