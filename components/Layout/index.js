@@ -27,6 +27,7 @@ const Layout = ({
         <meta name="apple-itunes-app" content="app-id=1172743994" />
         <link rel="icon" href="/static/logo.png" mce_href="/static/logo.png" type="image/x-icon" />
         <script src="https://pv.sohu.com/cityjson?ie=utf-8" />
+        <script data-ad-client="ca-pub-4575250619181340" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
       </Head>
       {!headerHidden ? <Header /> : ''}
       { children }
