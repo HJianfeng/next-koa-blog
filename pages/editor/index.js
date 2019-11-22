@@ -6,7 +6,10 @@ import EditorTop from 'components/EditorComponents/editTop';
 import marked from '@/components/marked';
 import { getArticeOne } from '@/utils/api/home';
 import { wordCount } from '@/utils';
+
+
 import './index.less';
+
 
 const Editor = dynamic(
   () => import('react-markdown-editor-lite'),
@@ -14,6 +17,8 @@ const Editor = dynamic(
 );
 
 function ArticleEditor({ articleData }) {
+  console.log(dynamic);
+  console.log(Editor);
   let initWord = 0;
   if (articleData.content) {
     initWord = wordCount(articleData.content);
