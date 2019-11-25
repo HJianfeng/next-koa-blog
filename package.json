@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon",
     "build": "next build",
-    "start": "NODE_ENV=production pm2 start start.js --name xingzhou",
+    "start": "NODE_ENV=production node start.js",
+    "start:pm2": "NODE_ENV=production pm2 start start.js --name xingzhou",
     "publish": "pm2 deploy ecosystem.json production"
   },
   "author": "hjf",

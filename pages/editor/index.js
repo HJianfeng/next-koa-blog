@@ -17,8 +17,6 @@ const Editor = dynamic(
 );
 
 function ArticleEditor({ articleData }) {
-  console.log(dynamic);
-  console.log(Editor);
   let initWord = 0;
   if (articleData.content) {
     initWord = wordCount(articleData.content);
