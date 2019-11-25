@@ -10,11 +10,15 @@ import { wordCount } from '@/utils';
 
 import './index.less';
 
+const isServer = typeof window === 'undefined';
+let Editor;
+if (!isServer) {
+  Editor = dynamic(
+    () => import('react-markdown-editor-lite'),
+    { ssr: false }
+  );
+}
 
-const Editor = dynamic(
-  () => import('react-markdown-editor-lite'),
-  { ssr: false }
-);
 
 function ArticleEditor({ articleData }) {
   let initWord = 0;
@@ -37,12 +41,18 @@ function ArticleEditor({ articleData }) {
       <EditorTop article={article} articleData={articleData} />
       <div className="md-editor-content">
         <div className={wordNum > 3000 ? 'word-num active' : 'word-num'}>{`字数：${wordNum}`}</div>
-        <Editor
-          className="editor-content"
-          renderHTML={text => marked(text)}
-          value={article}
-          onChange={val => changeArticle(val.text)}
-        />
+        {
+          Editor
+            ? (
+              <Editor
+                className="editor-content"
+                renderHTML={text => marked(text)}
+                value={article}
+                onChange={val => changeArticle(val.text)}
+              />
+            )
+            : ''
+        }
       </div>
     </div>
   );
