@@ -1,6 +1,6 @@
 /* eslint-disable no-cond-assign */
-import React, { useState, useCallback } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useState, useCallback, useEffect } from 'react';
+// import dynamic from 'next/dynamic';
 import _ from 'lodash';
 import EditorTop from 'components/EditorComponents/editTop';
 import marked from '@/components/marked';
@@ -11,11 +11,10 @@ import { wordCount } from '@/utils';
 import './index.less';
 
 // const isServer = typeof window === 'undefined';
-const Editor = dynamic(
-  () => import('@/components/EditorComponents/editor'),
-  { ssr: false }
-);
-
+// const Editor = dynamic(
+//   () => import('react-markdown-editor-lite'),
+//   { ssr: false }
+// );
 
 function ArticleEditor({ articleData }) {
   let initWord = 0;
@@ -24,6 +23,7 @@ function ArticleEditor({ articleData }) {
   }
   const [article, setArticle] = useState(articleData.content || '');
   const [wordNum, setWordNum] = useState(initWord);
+  const [Editor, setEditor] = useState();
 
   const changeWord = _.throttle((value) => {
     const count = wordCount(value);
@@ -33,17 +33,33 @@ function ArticleEditor({ articleData }) {
     setArticle(value);
     changeWord(value);
   }, []);
+  useEffect(() => {
+    console.log('useEffect');
+    import('react-markdown-editor-lite').then((loadedComponent) => {
+      setEditor(loadedComponent);
+    });
+    return () => {
+      setEditor();
+    };
+  }, []);
   return (
     <div className="editor-page-container">
       <EditorTop article={article} articleData={articleData} />
       <div className="md-editor-content">
         <div className={wordNum > 3000 ? 'word-num active' : 'word-num'}>{`字数：${wordNum}`}</div>
-        <Editor
-          className="editor-content"
-          renderHTML={text => marked(text)}
-          value={article}
-          onChange={val => changeArticle(val.text)}
-        />
+        {
+          Editor
+            ? (
+              <Editor.default
+                className="editor-content"
+                renderHTML={text => marked(text)}
+                value={article}
+                onChange={val => changeArticle(val.text)}
+              />
+            )
+            : ''
+        }
+
       </div>
     </div>
   );

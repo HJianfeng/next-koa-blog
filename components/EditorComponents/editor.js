@@ -1,17 +1,17 @@
 import React from 'react';
-// import Editor from 'react-markdown-editor-lite';
+import Editor from 'react-markdown-editor-lite';
 
 
-function EditorTool() {
+function EditorTool({ renderHTML, value, onChange }) {
   return (
     <div>
       2
-      {/* <Editor
+      <Editor
         className="editor-content"
         renderHTML={renderHTML}
         value={value}
         onChange={onChange}
-      /> */}
+      />
     </div>
   );
 }
