@@ -34,7 +34,6 @@ function ArticleEditor({ articleData }) {
     changeWord(value);
   }, []);
   useEffect(() => {
-    console.log('useEffect');
     import('react-markdown-editor-lite').then((loadedComponent) => {
       setEditor(loadedComponent);
     });
@@ -42,15 +41,17 @@ function ArticleEditor({ articleData }) {
       setEditor();
     };
   }, []);
+  const EditorDefault = Editor ? Editor.default : null;
+  console.log(EditorDefault);
   return (
     <div className="editor-page-container">
       <EditorTop article={article} articleData={articleData} />
       <div className="md-editor-content">
         <div className={wordNum > 3000 ? 'word-num active' : 'word-num'}>{`字数：${wordNum}`}</div>
         {
-          Editor
+          EditorDefault
             ? (
-              <Editor.default
+              <EditorDefault
                 className="editor-content"
                 renderHTML={text => marked(text)}
                 value={article}
