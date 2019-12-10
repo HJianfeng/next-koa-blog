@@ -17,10 +17,6 @@ const nextConfig = withLess({
     importLoaders: 1,
     localIdentName: '[local]___[hash:base64:5]'
   },
-  generateBuildId: async () => {
-    // For example get the latest git commit hash here
-    return 'v1';
-  },
   webpack(config, ...args) {
     config = withCSS().webpack(config, ...args);
     config.resolve.alias.components = path.join(__dirname, 'components');
