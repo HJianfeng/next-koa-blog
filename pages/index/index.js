@@ -2,7 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Spin } from 'antd';
+import { Spin, Row, Col } from 'antd';
 import { actionCreators } from '@store/home';
 
 import Recommend from 'components/Recommend';
@@ -38,35 +38,37 @@ function Home({ homeData, recommendData }) {
   return (
     <div className="home-container">
       <div className="home-content">
-        <div className="home-article">
-          <div className="home-article-list">
-            <InfiniteScroll
-              initialLoad={false}
-              pageStart={0}
-              loadMore={() => { handleInfiniteOnLoad(page); }}
-              hasMore={page < homeData.page}
-            >
-              <div className="article-list">
-                {
-                articleList.map((item) => {
-                  return <ArticleList key={item._id} homeDataItem={item} />;
-                })
-              }
-              </div>
-            </InfiniteScroll>
-          </div>
-          <div className="loading-container"><Spin spinning={loading} /></div>
-          {
-            articleList.length >= homeData.total
-              ? <div className="loading-container">加载完成</div> : ''
-          }
-        </div>
-        <div className="home-aside">
-          { recommendData && recommendData.code === 200
-            ? <Recommend recommendData={recommendData.data} />
-            : null
-          }
-        </div>
+        <Row gutter={{ xs: 0, sm: 8 }} className="home-row">
+          <Col xs={{ span: 24 }} sm={{ span: 17 }} className="home-article">
+            <div className="home-article-list">
+              <InfiniteScroll
+                initialLoad={false}
+                pageStart={0}
+                loadMore={() => { handleInfiniteOnLoad(page); }}
+                hasMore={page < homeData.page}
+              >
+                <div className="article-list">
+                  {
+                  articleList.map((item) => {
+                    return <ArticleList key={item._id} homeDataItem={item} />;
+                  })
+                }
+                </div>
+              </InfiniteScroll>
+            </div>
+            <div className="loading-container"><Spin spinning={loading} /></div>
+            {
+              articleList.length >= homeData.total
+                ? <div className="loading-container">加载完成</div> : ''
+            }
+          </Col>
+          <Col xs={{ span: 0 }} sm={{ span: 7 }} className="home-aside">
+            { recommendData && recommendData.code === 200
+              ? <Recommend recommendData={recommendData.data} />
+              : null
+            }
+          </Col>
+        </Row>
       </div>
     </div>
   );

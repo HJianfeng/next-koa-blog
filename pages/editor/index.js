@@ -13,7 +13,6 @@ import './index.less';
 // const isServer = typeof window === 'undefined';
 const Editor = dynamic(
   () => import('react-markdown-editor-lite').then((mod) => {
-    console.log(mod);
     return mod.default;
   }),
   { ssr: false }
@@ -36,16 +35,6 @@ function ArticleEditor({ articleData }) {
     setArticle(value);
     changeWord(value);
   }, []);
-  // useEffect(() => {
-  //   import('react-markdown-editor-lite').then((loadedComponent) => {
-  //     setEditor(loadedComponent);
-  //   });
-  //   return () => {
-  //     setEditor();
-  //   };
-  // }, []);
-  // const EditorDefault = Editor ? Editor.default : null;
-  // console.log(EditorDefault);
   return (
     <div className="editor-page-container">
       <EditorTop article={article} articleData={articleData} />

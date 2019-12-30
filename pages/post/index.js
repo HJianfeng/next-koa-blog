@@ -2,6 +2,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from '@store/home';
+import { Row, Col } from 'antd';
 import Recommend from '@/components/Recommend';
 import PostTools from '@/components/PostComponents/postTools';
 import Catalog from '@/components/PostComponents/Catalog';
@@ -17,33 +18,38 @@ function Post({ articeData, recommendData, userInfo }) {
   return (
     <div className="post-container">
       <div className="post-content">
-        <div className="markdown-container">
-          {
-          articeData && articeData.data
-            ? (
-              <Fragment>
-                <div className="post-top">
-                  <div className="post-title">{articeData.data.title}</div>
-                  <PostTools userInfo={userInfo} articeData={articeData} />
-                </div>
-                <div className="markdown-body" dangerouslySetInnerHTML={{ __html: artice }} />
-              </Fragment>
-            )
-            : ''
-          }
-        </div>
-        <div className="right-bar">
-          { recommendData && recommendData.code === 200
-            ? <Recommend recommendData={recommendData.data} />
-            : null
-          }
-          { articeData
-            && articeData.code === 200
-            && articeData.data.content
-            ? <Catalog artice={artice} />
-            : null
-          }
-        </div>
+        <Row gutter={{ xs: 0, sm: 8 }}>
+          <Col xs={{ span: 24 }} sm={{ span: 17 }}>
+            <div className="markdown-container">
+              { articeData && articeData.data
+                ? (
+                  <Fragment>
+                    <div className="post-top">
+                      <div className="post-title">{articeData.data.title}</div>
+                      <PostTools userInfo={userInfo} articeData={articeData} />
+                    </div>
+                    <div className="markdown-body" dangerouslySetInnerHTML={{ __html: artice }} />
+                  </Fragment>
+                )
+                : ''
+              }
+            </div>
+          </Col>
+          <Col xs={{ span: 0 }} sm={{ span: 7 }}>
+            <div className="right-bar">
+              { recommendData && recommendData.code === 200
+                ? <Recommend recommendData={recommendData.data} />
+                : null
+              }
+              { articeData
+                  && articeData.code === 200
+                  && articeData.data.content
+                ? <Catalog artice={artice} />
+                : null
+              }
+            </div>
+          </Col>
+        </Row>
       </div>
     </div>
   );
