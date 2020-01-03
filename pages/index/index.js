@@ -38,7 +38,7 @@ function Home({ homeData, recommendData }) {
   return (
     <div className="home-container">
       <div className="home-content">
-        <Row gutter={{ xs: 0, sm: 8 }} className="home-row">
+        <Row className="home-row">
           <Col xs={{ span: 24 }} sm={{ span: 17 }} className="home-article">
             <div className="home-article-list">
               <InfiniteScroll
@@ -62,7 +62,7 @@ function Home({ homeData, recommendData }) {
                 ? <div className="loading-container">加载完成</div> : ''
             }
           </Col>
-          <Col xs={{ span: 0 }} sm={{ span: 7 }} className="home-aside">
+          <Col xs={{ span: 0 }} sm={{ span: 6 }} className="home-aside">
             { recommendData && recommendData.code === 200
               ? <Recommend recommendData={recommendData.data} />
               : null

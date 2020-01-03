@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 /**
- * mongoose连接数据库
+ * mongoose连接数据库 0.0.0.0
  * @type {[type]}
  */
 mongoose.Promise = Promise;

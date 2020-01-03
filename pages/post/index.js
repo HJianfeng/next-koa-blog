@@ -18,7 +18,7 @@ function Post({ articeData, recommendData, userInfo }) {
   return (
     <div className="post-container">
       <div className="post-content">
-        <Row gutter={{ xs: 0, sm: 8 }}>
+        <Row>
           <Col xs={{ span: 24 }} sm={{ span: 17 }}>
             <div className="markdown-container">
               { articeData && articeData.data
@@ -35,7 +35,7 @@ function Post({ articeData, recommendData, userInfo }) {
               }
             </div>
           </Col>
-          <Col xs={{ span: 0 }} sm={{ span: 7 }}>
+          <Col xs={{ span: 0 }} sm={{ span: 6 }} className="post-aside">
             <div className="right-bar">
               { recommendData && recommendData.code === 200
                 ? <Recommend recommendData={recommendData.data} />
