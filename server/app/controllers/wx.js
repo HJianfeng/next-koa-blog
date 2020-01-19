@@ -3,6 +3,8 @@
 /* eslint-disable require-atomic-updates */
 import axios from 'axios';
 import wx from '../models/wx';
+
+const crypto = require('crypto');
 /**
  * wx
  * @param {[type]}   ctx      [description]
@@ -82,12 +84,20 @@ const getTicke = (token) => {
 
 exports.getUserInfo = async (ctx) => {
   const params = ctx.query;
-  const { data } = await axios.post('https://applet.nanrenbang.cn/api/wechat/sign', params);
+  // const { data } = await axios.post('https://applet.nanrenbang.cn/api/wechat/sign', params);
+  const { data } = await axios.get('https://applet.nanrenbang.cn/api/wechat/get/jsapi_ticket');
+  const ticket = data.data;
+  const signatureUrl = `jsapi_ticket=${ticket}&noncestr=${params.noncestr}&timestamp=${params.timestamp}&url=${params.url}`;
+  const shasum = crypto.createHash('sha1');
+
+  shasum.update(signatureUrl);
+  const signature = shasum.digest('hex'); /* 生成签名 */
   const returnData = {
     ...params
   };
   if (data) {
-    returnData.jsapi_ticket = data.data;
+    returnData.signature = signature;
+    returnData.jsapi_ticket = ticket;
   }
   ctx.body = {
     code: 200,

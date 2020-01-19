@@ -23,6 +23,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "bcrypt-nodejs": "^0.0.3",
+    "crypto": "^1.0.1",
     "eslint-plugin-nns": "^0.0.2",
     "highlight.js": "^9.15.10",
     "jsonwebtoken": "^8.5.1",
