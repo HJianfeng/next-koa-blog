@@ -84,7 +84,7 @@ const getTicke = (token) => {
 
 exports.getUserInfo = async (ctx) => {
   const params = ctx.query;
-  // const { data } = await axios.post('https://applet.nanrenbang.cn/api/wechat/sign', params);
+  const test = await axios.post('https://applet.nanrenbang.cn/api/wechat/sign', params);
   const { data } = await axios.get('https://applet.nanrenbang.cn/api/wechat/get/jsapi_ticket');
   const ticket = data.data;
   const signatureUrl = `jsapi_ticket=${ticket}&noncestr=${params.noncestr}&timestamp=${params.timestamp}&url=${params.url}`;
@@ -92,12 +92,14 @@ exports.getUserInfo = async (ctx) => {
 
   shasum.update(signatureUrl);
   const signature = shasum.digest('hex'); /* 生成签名 */
+
   const returnData = {
     ...params
   };
   if (data) {
     returnData.signature = signature;
     returnData.jsapi_ticket = ticket;
+    returnData.test = test.data.data;
   }
   ctx.body = {
     code: 200,
