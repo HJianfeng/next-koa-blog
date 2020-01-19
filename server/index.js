@@ -49,6 +49,7 @@ app.prepare().then(() => {
   });
   server.use(async (ctx, nextF) => {
     ctx.res.statusCode = 200;
+    ctx.set('Access-Control-Allow-Origin', '*');
     /* 当token验证异常时候的处理，如token过期、token错误 */
     await nextF().catch((err) => {
       if (err.status === 401) {

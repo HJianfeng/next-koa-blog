@@ -3,6 +3,7 @@ const Home = require('../app/controllers/home');
 const Posts = require('../app/controllers/posts');
 const Recommend = require('../app/controllers/recommend');
 const User = require('../app/controllers/user');
+const Wx = require('../app/controllers/wx');
 
 module.exports = () => {
   const router = new Router({
@@ -26,6 +27,9 @@ module.exports = () => {
   router.post('/register', User.register);
   router.get('/user', User.getUserOne);
   router.get('/my/user', User.getMyUser);
+
+  router.get('/wx/accesstoken', Wx.getToken);
+  router.get('/wx/user', Wx.getUserInfo);
 
   return router;
 };
