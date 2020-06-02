@@ -84,6 +84,7 @@ const getTicke = (token) => {
 
 exports.getUserInfo = async (ctx) => {
   const params = ctx.query;
+
   const test = await axios.post('https://applet.nanrenbang.cn/api/wechat/sign', params);
   const { data } = await axios.get('https://applet.nanrenbang.cn/api/wechat/get/jsapi_ticket');
   const ticket = data.data;
@@ -106,3 +107,7 @@ exports.getUserInfo = async (ctx) => {
     data: returnData
   };
 };
+
+// exports.getUserInfo = async (ctx) => {
+//   const params = ctx.query;
+// };

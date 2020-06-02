@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
  * @type {[type]}
  */
 mongoose.Promise = Promise;
-const url = 'mongodb://xingzhou:123456@0.0.0.0:27017/nextblog';
+const url = 'mongodb://xingzhou:123456@120.78.162.6:27017/nextblog';
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', (error) => {
