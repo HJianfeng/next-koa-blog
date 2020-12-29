@@ -19,7 +19,7 @@ import './index.less';
 // );
 
 function ArticleEditor({ articleData, EditorComponent }) {
-  console.log(EditorComponent);
+  console.log(EditorComponent.render ? EditorComponent.render() : EditorComponent);
   let initWord = 0;
   if (articleData.content) {
     initWord = wordCount(articleData.content);
