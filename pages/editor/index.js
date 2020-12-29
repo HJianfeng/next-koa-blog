@@ -18,11 +18,10 @@ let Editor = dynamic(
   { ssr: false }
 );
 if (Editor.render) {
-  Editor = Editor.render;
+  Editor = Editor.render();
 }
 
 function ArticleEditor({ articleData }) {
-  console.log(Editor);
   let initWord = 0;
   if (articleData.content) {
     initWord = wordCount(articleData.content);
