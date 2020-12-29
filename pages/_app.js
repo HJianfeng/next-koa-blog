@@ -2,6 +2,7 @@ import App from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
+import dynamic from 'next/dynamic';
 // import Router from 'next/router';
 import axios from '@/utils/axios';
 import Layout from '../components/Layout';
@@ -11,6 +12,12 @@ import '../static/css/reset.less';
 import { actionCreators } from '../store/Reducer/user';
 import { getServerCookie } from '@/utils';
 
+const Editor = dynamic(
+  () => import('react-markdown-editor-lite').then((mod) => {
+    return mod.default;
+  }),
+  { ssr: false }
+);
 // Router.onRouteChangeStart = () => {
 //   NProgress.start();
 // };
@@ -69,7 +76,7 @@ class MyApp extends App {
           headerHidden={pageProps.headerHidden}
           FooterHidden={pageProps.FooterHidden}
         >
-          <Component {...pageProps} />
+          <Component {...pageProps} EditorComponent={Editor} />
         </Layout>
       </Provider>
     );
