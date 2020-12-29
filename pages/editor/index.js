@@ -1,6 +1,6 @@
 /* eslint-disable no-cond-assign */
 import React, { useState, useCallback } from 'react';
-// import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic';
 import _ from 'lodash';
 import EditorTop from 'components/EditorComponents/editTop';
 import marked from '@/components/marked';
@@ -11,15 +11,18 @@ import { wordCount } from '@/utils';
 import './index.less';
 
 // const isServer = typeof window === 'undefined';
-// const Editor = dynamic(
-//   () => import('react-markdown-editor-lite').then((mod) => {
-//     return mod.default;
-//   }),
-//   { ssr: false }
-// );
+let Editor = dynamic(
+  () => import('react-markdown-editor-lite').then((mod) => {
+    return mod.default;
+  }),
+  { ssr: false }
+);
+if (Editor.render) {
+  Editor = Editor.render;
+}
 
-function ArticleEditor({ articleData, EditorComponent }) {
-  console.log(EditorComponent.render ? EditorComponent.render() : EditorComponent);
+function ArticleEditor({ articleData }) {
+  console.log(Editor);
   let initWord = 0;
   if (articleData.content) {
     initWord = wordCount(articleData.content);
@@ -42,9 +45,9 @@ function ArticleEditor({ articleData, EditorComponent }) {
       <div className="md-editor-content">
         <div className={wordNum > 3000 ? 'word-num active' : 'word-num'}>{`字数：${wordNum}`}</div>
         {
-          EditorComponent
+          Editor
             ? (
-              <EditorComponent
+              <Editor
                 className="editor-content"
                 renderHTML={text => marked(text)}
                 value={article}
