@@ -41,19 +41,12 @@ function ArticleEditor({ articleData }) {
       <EditorTop article={article} articleData={articleData} />
       <div className="md-editor-content">
         <div className={wordNum > 3000 ? 'word-num active' : 'word-num'}>{`字数：${wordNum}`}</div>
-        {
-          Editor
-            ? (
-              <Editor
-                className="editor-content"
-                renderHTML={text => marked(text)}
-                value={article}
-                onChange={val => changeArticle(val.text)}
-              />
-            )
-            : ''
-        }
-
+        <Editor
+          className="editor-content"
+          renderHTML={text => marked(text)}
+          value={article}
+          onChange={val => changeArticle(val.text)}
+        />
       </div>
     </div>
   );
