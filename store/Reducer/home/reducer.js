@@ -4,7 +4,7 @@ const defaultState = {
   scrollFlag: true
 };
 
-export default (state = defaultState, action) => {
+const name = (state = defaultState, action) => {
   switch (action.type) {
     case constants.CHANGE_FLAG:
       return Object.assign({}, state, {
@@ -14,3 +14,4 @@ export default (state = defaultState, action) => {
       return state;
   }
 };
+export default name;

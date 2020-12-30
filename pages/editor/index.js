@@ -11,17 +11,15 @@ import { wordCount } from '@/utils';
 import './index.less';
 
 // const isServer = typeof window === 'undefined';
-const Component = dynamic(
+const Editor = dynamic(
   () => import('react-markdown-editor-lite').then((mod) => {
     return mod.default;
   }),
   { ssr: false }
 );
-const ForwardedRefComponent = React.forwardRef((props, ref) => (
-  <Component {...props} forwardedRef={ref} />
-));
 
 function ArticleEditor({ articleData }) {
+  console.log(Editor);
   let initWord = 0;
   if (articleData.content) {
     initWord = wordCount(articleData.content);
@@ -44,9 +42,9 @@ function ArticleEditor({ articleData }) {
       <div className="md-editor-content">
         <div className={wordNum > 3000 ? 'word-num active' : 'word-num'}>{`字数：${wordNum}`}</div>
         {
-          ForwardedRefComponent
+          Editor
             ? (
-              <ForwardedRefComponent
+              <Editor
                 className="editor-content"
                 renderHTML={text => marked(text)}
                 value={article}

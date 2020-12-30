@@ -5,7 +5,7 @@ const defaultState = {
   xtoken: ''
 };
 
-export default (state = defaultState, action) => {
+const userReducer = (state = defaultState, action) => {
   switch (action.type) {
     case constants.CHANGE_USER_INFO:
       return Object.assign({}, state, {
@@ -19,3 +19,4 @@ export default (state = defaultState, action) => {
       return state;
   }
 };
+export default userReducer;

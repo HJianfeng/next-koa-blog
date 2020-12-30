@@ -37,8 +37,9 @@ renderer.paragraph = paragraphParse;
 renderer.link = linkParse;
 renderer.heading = heading;
 
-export default (content) => {
+const markedComponent = (content) => {
   if (typeof content !== 'string') return '';
 
   return marked(content, { renderer });
 };
+export default markedComponent;
