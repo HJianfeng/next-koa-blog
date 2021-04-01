@@ -42,7 +42,10 @@ app.prepare().then(() => {
     await app.render(ctx.req, ctx.res, '/editor', ctx.query);
     ctx.respond = false;
   });
-
+  router.get('/vuePage', async (ctx) => {
+    await app.render(ctx.req, ctx.res, '/vuePage', ctx.query);
+    ctx.respond = false;
+  });
 
   router.all('*', async (ctx) => {
     await handle(ctx.req, ctx.res);

@@ -5,12 +5,12 @@ import withRedux from 'next-redux-wrapper';
 import dynamic from 'next/dynamic';
 // import Router from 'next/router';
 import axios from '@/utils/axios';
+import { getServerCookie } from '@/utils';
 import Layout from '../components/Layout';
 import makeStore from '../store';
 import 'antd/dist/antd.less';
 import '../static/css/reset.less';
 import { actionCreators } from '../store/Reducer/user';
-import { getServerCookie } from '@/utils';
 
 const Editor = dynamic(
   () => import('react-markdown-editor-lite').then((mod) => {
