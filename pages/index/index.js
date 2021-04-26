@@ -16,7 +16,7 @@ function Home({ homeData, recommendData }) {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [flag, setFlag] = useState(true);
-  const handleInfiniteOnLoad = useCallback(async (current) => {
+  const handleInfiniteOnLoad = useCallback(async (current, articleData) => {
     if (flag) {
       setLoading(true);
       setFlag(false);
@@ -29,7 +29,7 @@ function Home({ homeData, recommendData }) {
       setLoading(false);
       if (data.code === 200 && data.data.length > 0) {
         setFlag(true);
-        const newArr = articleList.concat(data.data);
+        const newArr = articleData.concat(data.data);
         setArticleList(newArr);
       }
     }
@@ -44,7 +44,7 @@ function Home({ homeData, recommendData }) {
               <InfiniteScroll
                 initialLoad={false}
                 pageStart={0}
-                loadMore={() => { handleInfiniteOnLoad(page); }}
+                loadMore={() => { handleInfiniteOnLoad(page, articleList); }}
                 hasMore={page < homeData.page}
               >
                 <div className="article-list">
