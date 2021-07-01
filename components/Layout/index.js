@@ -31,6 +31,7 @@ const Layout = ({
       {!headerHidden ? <Header /> : ''}
       { children }
       {!FooterHidden ? <Footer /> : ''}
+      {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.14.2/matter.min.js" integrity="sha512-pi0tSRZdlNRZeANPwdAIHRAYg6gZZV6QlAiyHXn5TYqLzBKE9jlttO/QgYLMhISD6oNv2kPsVelx+n5nw0FqKA==" crossOrigin="anonymous" /> */}
     </div>
   );
 };

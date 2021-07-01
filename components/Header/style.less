@@ -17,7 +17,6 @@
   height: 100%;
   .header-logo {
     height: 100%;
-    flex: 1;
     display: flex;
     align-items: center;
     font-size: 14px;
@@ -34,6 +33,22 @@
       width: 35px;
       display: flex;
       margin-right: 10px;
+    }
+  }
+  .header-menu {
+    flex:1;
+    display: flex;
+    margin-left: 20px;
+    &-item {
+      color: #333;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+      cursor: pointer;
+      &.active {
+        color: #007fff;
+      }
     }
   }
   .header-navbar {

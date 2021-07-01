@@ -46,7 +46,10 @@ app.prepare().then(() => {
     await app.render(ctx.req, ctx.res, '/vuePage', ctx.query);
     ctx.respond = false;
   });
-
+  router.get('/labo', async (ctx) => {
+    await app.render(ctx.req, ctx.res, '/labo', ctx.query);
+    ctx.respond = false;
+  });
   router.all('*', async (ctx) => {
     await handle(ctx.req, ctx.res);
   });

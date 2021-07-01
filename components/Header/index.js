@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import './style.less';
 import Link from 'next/link';
@@ -9,15 +9,13 @@ import { delCookie } from '@/utils';
 
 
 function Header({ userInfo, getUserInfo }) {
+  const router = useRouter();
   const handelClick = useCallback((type) => {
-    switch (type) {
-      case 1:
-        Router.push('/editor');
-        break;
-      default:
-        delCookie('xtoken');
-        getUserInfo();
-        break;
+    if (type === 1) {
+      router.push('/editor');
+    } else {
+      delCookie('xtoken');
+      getUserInfo();
     }
   }, []);
   const menu = useCallback(() => {
@@ -28,7 +26,6 @@ function Header({ userInfo, getUserInfo }) {
       </Menu>
     );
   }, []);
-
   return (
     <div className="header-container">
       <div className="header-content">
@@ -40,6 +37,15 @@ function Header({ userInfo, getUserInfo }) {
             </a>
           </Link>
         </div>
+        <div className="header-menu">
+          <Link href="/">
+            <div className={router.pathname === '/index' ? 'header-menu-item active' : 'header-menu-item'}>首页</div>
+          </Link>
+          <Link href="/labo">
+            <div className={router.pathname === '/labo' ? 'header-menu-item active' : 'header-menu-item'}>实验</div>
+          </Link>
+        </div>
+
         <div className="header-navbar">
           {/* <div className="header-navbar-item">文章</div> */}
           {/* <div className="header-navbar-item">热门</div>
