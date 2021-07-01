@@ -11,7 +11,7 @@ function Soldier() {
       const humanAction = new Human('three-container');
       setThreeCache({human: humanAction})
     }
-  }, []);
+  }, []); 
 
   const handelClick = (type) => {
     switch (type) {
