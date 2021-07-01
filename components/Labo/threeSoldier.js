@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 // const isServer = typeof window === 'undefined';
 import Human from './threeComponent/Soldier.js'
-import { Button } from 'antd';
+import { Button, Icon } from 'antd';
 import './style.less';
 
 function Soldier() {
   const [threeCache, setThreeCache] = useState({})
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     if(!threeCache || !threeCache.human ) {
-      const humanAction = new Human('three-container');
+      setLoading(true);
+      const humanAction = new Human('three-container', function() {
+        setLoading(false);
+      });
       setThreeCache({human: humanAction})
     }
   }, []); 
@@ -33,6 +38,11 @@ function Soldier() {
         <Button className="btn" onClick={() => { handelClick('walk') }} >走路</Button>
         <Button className="btn" onClick={() => { handelClick('') }} >暂停</Button>
       </div>
+      {
+        loading?(
+          <div className="loading-container"><Icon type="loading" />加载中</div>
+        ): '' 
+      }
     </div>
   );
 }

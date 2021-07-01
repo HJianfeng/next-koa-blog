@@ -12,7 +12,8 @@ if(!isServer){
 }
 
 class Human {
-  constructor(domId) {
+  constructor(domId, callback) {
+    this.callback = callback;
     this.domId = domId
     this.headerHeight = 50;
     this.curAction = 'walk'; // 当前的动作，walk,run,idle
@@ -80,6 +81,7 @@ class Human {
       that.runAction = runAction;
 
       that.animate();
+      if(that.callback) that.callback()
    })
   }
 
