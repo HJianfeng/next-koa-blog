@@ -18,7 +18,7 @@ function Labo() {
         <Select defaultValue={animate} onChange={(val) => {handelChange(val)}}>
           <Option value={0}>行走的士兵</Option>
         </Select>
-      </div>
+      </div> 
       {
         animate === 0?(<Soldier />):''
       }
