@@ -40,7 +40,7 @@ function Soldier() {
       </div>
       {
         loading?(
-          <div className="loading-container"><Icon type="loading" />加载中</div>
+          <div className="solider-loading-container"><Icon type="loading" />加载中</div>
         ): '' 
       }
     </div>
