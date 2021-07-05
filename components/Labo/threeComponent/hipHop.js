@@ -2,28 +2,30 @@ import * as THREE from 'three';
 
 const isServer = typeof window === 'undefined';
 let OrbitControls;
-let GLTFLoader;
+let FBXLoader;
 if(!isServer){
   const controls = require('three/examples/jsm/controls/OrbitControls.js');
   OrbitControls = controls.OrbitControls;
 
-  const loader = require('three/examples/jsm/loaders/GLTFLoader.js');
-  GLTFLoader = loader.GLTFLoader
+  const loader = require('three/examples/jsm/loaders/FBXLoader.js');
+  FBXLoader = loader.FBXLoader
 }
 
-class Human {
+class HipHop {
   constructor(domId, callback) {
     this.callback = callback;
+    callback();
     this.domId = domId
     this.headerHeight = 50;
-    this.curAction = 'walk'; // 当前的动作，walk,run,idle
     this.init();
   }
+
   init() {
     // 创建一个场景
     this.scene = new THREE.Scene();
     // 地板
     const geometry = new THREE.PlaneGeometry(100, 100);
+
     const material = new THREE.MeshPhongMaterial({
       color: 0x999999,
       depthWrite: false
@@ -33,58 +35,38 @@ class Human {
     mesh.rotation.x = - Math.PI / 2;
     mesh.receiveShadow = true;
     this.scene.add(mesh);
+
+    // 环境
+
     // const axisHelper = new THREE.AxisHelper(250);
     // this.scene.add(axisHelper)
-    // 环境
     this.addLight();
     this.addCamera();
     this.addRenderer();
 
     this.loadModel();
-    this.addOrbitControls();
   }
   loadModel() {
-   const loader = new GLTFLoader();
-   const that = this;
-   loader.load('/static/model/Soldier.glb', function(gltf) {
-      const model = gltf.scene;
-      model.translateY(-1)
-
-      that.scene.add(model);
-      model.traverse(function(object) {
-        if(object.isMesh) object.castShadow = true;
-
-      })
-
-      const skeleton = new THREE.SkeletonHelper(model); // 用来模拟骨骼 Skeleton 的辅助对象. 
-      skeleton.visible = false;
-      that.scene.add( skeleton );
-
-      const animations = gltf.animations;
-      const mixer = new THREE.AnimationMixer( model );
-      const idleAction = mixer.clipAction( animations[ 0 ] );
-      const walkAction = mixer.clipAction( animations[ 3 ] );
-      const runAction = mixer.clipAction( animations[ 1 ] );
-
-      const actions = [ idleAction, walkAction, runAction ];
-
-      that.setWeight( idleAction, 0.0 );
-      that.setWeight( walkAction, 1.0 );
-      that.setWeight( runAction, 0.0 );
-      
-      actions.forEach(function (action) {
-        action.play();
+    const loader = new FBXLoader();
+    const that = this;
+    loader.load('/static/model/HipHopDancing.fbx',function(obj) {
+      obj.translateY(-1)
+      obj.scale.set(0.01,0.01,0.01)
+      obj.rotation.y = Math.PI
+      const mixer = new THREE.AnimationMixer(obj);
+      const action = mixer.clipAction(obj.animations[0]);
+      action.play();
+      obj.traverse( function (child) {
+        if ( child.isMesh ) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
       });
-
-      that.actions = actions;
+      that.scene.add( obj );
       that.mixer = mixer;
-      that.idleAction = idleAction;
-      that.walkAction = walkAction;
-      that.runAction = runAction;
-
       that.animate();
       if(that.callback) that.callback()
-   })
+    })
   }
 
   addLight() {
@@ -116,9 +98,6 @@ class Human {
     camera.lookAt(this.scene.position); //设置相机方向(指向的场景对象)
     this.camera = camera;
   }
-  /**
-   * 创建渲染器对象
-   */
   addRenderer() {
     const container = document.getElementById(this.domId);
     const renderer = new THREE.WebGLRenderer({
@@ -138,12 +117,10 @@ class Human {
     renderer.setClearColor(0xffffff, 1); //设置背景颜色
 
     this.renderer = renderer;
-  }
+    this.addOrbitControls();
 
-  addOrbitControls() {
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);//创建控件对象
+    // that.renderer.render(that.scene, that.camera);
   }
-
   animate() {
     const that = this;
     const clock = new THREE.Clock();
@@ -151,74 +128,13 @@ class Human {
       window.requestAnimationFrame(animate);
 
       let mixerUpdateDelta = clock.getDelta();
-
-      that.actions.forEach( function ( action ) {
-        action.paused = false;
-      });
-
       that.mixer.update(mixerUpdateDelta);
       that.renderer.render(that.scene, that.camera);
     }
     animate();
   }
-
-  // utils
-  setWeight( action, weight ) {
-    action.enabled = true;
-    action.setEffectiveTimeScale( 1 );
-    action.setEffectiveWeight( weight );
+  addOrbitControls() {
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);//创建控件对象
   }
-
-  toRun(duration) {
-    const curAction = this.curAction;
-    if(curAction === 'idle') {
-      this.executeCrossFade( this.idleAction, this.runAction, duration);
-    } else if(curAction === 'walk') {
-      this.synchronizeCrossFade( this.walkAction, this.runAction, duration);
-    }
-    this.curAction = 'run'
-  }
-  toWalk(duration) {
-    const curAction = this.curAction;
-    if(curAction === 'run') {
-      this.synchronizeCrossFade( this.runAction, this.walkAction, duration);
-    } else if(curAction === 'idle') {
-      this.executeCrossFade( this.idleAction, this.walkAction, duration);
-    }
-    this.curAction = 'walk'
-  }
-  toStop(duration) {
-    const curAction = this.curAction;
-    // 从走路 -> 停止
-    if(curAction === 'walk') {
-      this.synchronizeCrossFade( this.walkAction, this.idleAction, duration);
-    } else if(curAction === 'run') {
-      // 从跑步 -> 停止
-      this.synchronizeCrossFade( this.runAction, this.idleAction, duration);
-    }
-    this.curAction = 'idle';
-  }
-
-  synchronizeCrossFade( startAction, endAction, duration) {
-    // 等待当前这一轮的动画结束才开始变化动作
-    this.mixer.addEventListener( 'loop', onLoopFinished );
-    const that = this;
-    function onLoopFinished( event ) {
-      if ( event.action === startAction ) {
-        that.mixer.removeEventListener( 'loop', onLoopFinished );
-        that.executeCrossFade( startAction, endAction, duration );
-      }
-    }
-  }
-
-  executeCrossFade(startAction, endAction, duration = 1) {
-    this.setWeight(endAction, 1);
-    endAction.time = 0;
-
-    // 在传入的时间段内, 让此动作淡出（fade out），同时让另一个动作淡入。此方法可链式调用。
-    startAction.crossFadeTo(endAction, duration, true);
-  }
-
 }
-
-export default Human;
+export default HipHop;

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Soldier from 'components/Labo/threeSoldier';
+import HipHopDancing from 'components/Labo/hipHopDancing';
 import { Select } from 'antd';
 const { Option } = Select;
 import './index.less';
@@ -17,11 +18,11 @@ function Labo() {
         <span className="label">Three.js 动画示例</span>
         <Select defaultValue={animate} onChange={(val) => {handelChange(val)}}>
           <Option value={0}>行走的士兵</Option>
+          <Option value={1}>HipHop 舞蹈</Option>
         </Select>
       </div> 
-      {
-        animate === 0?(<Soldier />):''
-      }
+      { animate === 0?(<Soldier />):'' }
+      { animate === 1?(<HipHopDancing />):''}
     </div>
   );
 }
